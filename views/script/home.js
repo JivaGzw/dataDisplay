@@ -1,9 +1,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Link = require('react-router').Link;
-var Animate = require('react-motion');
+
 
 var Header = require('../component/header.js');
+var EnterAnimate = require('../component/enter-animate.js');
 
 var mainContainerStyle = {
   marginTop: '5%'
@@ -25,7 +26,7 @@ var Home = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <EnterAnimate>
         <Header>A Summarize Of tuchong.com</Header>
         
         <div className="ui inverted vertical masthead center aligned segment" style={mainContainerStyle}>
@@ -45,7 +46,7 @@ var Home = React.createClass({
             </Link>
           </div>
         </div>
-      </div>
+      </EnterAnimate>
     );
   }
 });

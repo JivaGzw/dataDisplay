@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 
 var Header = require('../component/header.js');
 var NextButton = require('../component/next-button.js');
+var EnterAnimate = require('../component/enter-animate.js');
 
 var chartStyle = {
   width: '800',
@@ -81,7 +82,7 @@ var UserScaleTwo = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <EnterAnimate>
         <Header>UserScale—Chart 2</Header>
         <div className="ui one colum centered grid">
           <div className="colum">
@@ -91,7 +92,7 @@ var UserScaleTwo = React.createClass({
             <NextButton url="/tuchong/userlocation"></NextButton>
           </div>
         </div>
-      </div>
+      </EnterAnimate>
     );
   }
 });

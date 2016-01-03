@@ -13,16 +13,16 @@ webpackJsonp([0],{
 
 	var NavList = __webpack_require__(225);
 	var Home = __webpack_require__(226);
-	var OverView = __webpack_require__(228);
-	var DigitalCamera = __webpack_require__(230);
-	var Lens = __webpack_require__(232);
-	var Userlocation = __webpack_require__(233);
-	var UserScaleOne = __webpack_require__(234);
-	var UserScaleTwo = __webpack_require__(235);
-	var ArchitecturePage = __webpack_require__(236);
-	var OtherPage = __webpack_require__(237);
-	var AboutPage = __webpack_require__(238);
-	var MenuButton = __webpack_require__(239);
+	var OverView = __webpack_require__(230);
+	var DigitalCamera = __webpack_require__(232);
+	var Lens = __webpack_require__(233);
+	var Userlocation = __webpack_require__(234);
+	var UserScaleOne = __webpack_require__(235);
+	var UserScaleTwo = __webpack_require__(236);
+	var ArchitecturePage = __webpack_require__(237);
+	var OtherPage = __webpack_require__(238);
+	var AboutPage = __webpack_require__(239);
+	var MenuButton = __webpack_require__(240);
 
 	var fullScreenStyle = {
 	  width: '100%',
@@ -1606,9 +1606,10 @@ webpackJsonp([0],{
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 	var Link = __webpack_require__(158).Link;
-	var Animate = __webpack_require__(207);
 
-	var Header = __webpack_require__(227);
+
+	var Header = __webpack_require__(228);
+	var EnterAnimate = __webpack_require__(229);
 
 	var mainContainerStyle = {
 	  marginTop: '5%'
@@ -1630,7 +1631,7 @@ webpackJsonp([0],{
 
 	  render: function() {
 	    return (
-	      React.createElement("div", null, 
+	      React.createElement(EnterAnimate, null, 
 	        React.createElement(Header, null, "A Summarize Of tuchong.com"), 
 	        
 	        React.createElement("div", {className: "ui inverted vertical masthead center aligned segment", style: mainContainerStyle}, 
@@ -1656,11 +1657,11 @@ webpackJsonp([0],{
 	});
 
 	module.exports = Home;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
 
 /***/ },
 
-/***/ 227:
+/***/ 228:
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -1688,14 +1689,68 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 228:
+/***/ 229:
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(157);
+	var Animate = __webpack_require__(207);
+
+	var EnterAnimate = React.createClass({displayName: "EnterAnimate",
+	  getDefalutStyle: function() {
+	    return {
+	      x: 0,
+	      y: 0,
+	      z: 0
+	    }
+	  },
+
+	  getStyle: function() {
+	    return {
+	      x: Animate.spring(1,[100,100]),
+	      y: Animate.spring(0.5,[100,100]),
+	      z: Animate.spring(1,[180,60])
+	    }
+	  },
+
+	  render: function() {
+	    return (
+	      React.createElement(Animate.Motion, {defaultStyle: this.getDefalutStyle(), style: this.getStyle()}, 
+	        
+	          function(obj){
+	            return (
+	              React.createElement("div", {style: {perspective: 1500}}, 
+	                React.createElement("div", {style: {
+	                  opacity: obj.x,
+	                  transform: "rotateY("+(50-50*obj.z)+"deg)",
+	                  transformOrigin: "0% 50%"
+	                }}, 
+	                  this.props.children
+	                )
+	              )
+	              
+	            )
+	            
+	          }.bind(this)
+	        
+	      )
+	    );
+	  }
+	});
+
+	module.exports = EnterAnimate;
+
+/***/ },
+
+/***/ 230:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(227);
-	var NextButton = __webpack_require__(229);
+	var Header = __webpack_require__(228);
+	var NextButton = __webpack_require__(231);
+	var EnterAnimate = __webpack_require__(229);
 
 	var mainContainerStyle = {
 	  marginTop: '5%',
@@ -1719,7 +1774,7 @@ webpackJsonp([0],{
 
 	  render: function() {
 	    return (
-	      React.createElement("div", null, 
+	      React.createElement(EnterAnimate, null, 
 	        React.createElement("div", null, 
 	          React.createElement(Header, null, "OverView")
 	        ), 
@@ -1749,11 +1804,11 @@ webpackJsonp([0],{
 	});
 
 	module.exports = OverView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
 
 /***/ },
 
-/***/ 229:
+/***/ 231:
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -1778,14 +1833,15 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 230:
+/***/ 232:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(227);
-	var NextButton = __webpack_require__(229);
+	var Header = __webpack_require__(228);
+	var NextButton = __webpack_require__(231);
+	var EnterAnimate = __webpack_require__(229);
 
 	var chartStyle = {
 	  width: '800',
@@ -1884,7 +1940,7 @@ webpackJsonp([0],{
 
 	  render: function() {
 	    return (
-	      React.createElement("div", null, 
+	      React.createElement(EnterAnimate, null, 
 	        React.createElement(Header, null, "DigitalCamera"), 
 	        React.createElement("div", {className: "ui one colum centered grid"}, 
 	          React.createElement("div", {className: "colum"}, 
@@ -1900,18 +1956,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = DigitalCamera;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
 
 /***/ },
 
-/***/ 232:
+/***/ 233:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(227);
-	var NextButton = __webpack_require__(229);
+	var Header = __webpack_require__(228);
+	var NextButton = __webpack_require__(231);
+	var EnterAnimate = __webpack_require__(229);
 
 	var chartStyle = {
 	  width: '800',
@@ -2102,7 +2159,7 @@ webpackJsonp([0],{
 
 	  render: function() {
 	    return (
-	      React.createElement("div", null, 
+	      React.createElement(EnterAnimate, null, 
 	        React.createElement(Header, null, "Lens"), 
 	        React.createElement("div", {className: "ui one colum centered grid"}, 
 	          React.createElement("div", {className: "colum"}, 
@@ -2118,18 +2175,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = Lens;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
 
 /***/ },
 
-/***/ 233:
+/***/ 234:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(227);
-	var NextButton = __webpack_require__(229);
+	var Header = __webpack_require__(228);
+	var NextButton = __webpack_require__(231);
+	var EnterAnimate = __webpack_require__(229);
 
 	var chartStyle = {
 	  width: '800',
@@ -2268,7 +2326,7 @@ webpackJsonp([0],{
 
 	  render: function() {
 	    return (
-	      React.createElement("div", null, 
+	      React.createElement(EnterAnimate, null, 
 	        React.createElement(Header, null, "UserLocation"), 
 	        React.createElement("div", {className: "ui one colum centered grid"}, 
 	          React.createElement("div", {className: "colum"}, 
@@ -2284,18 +2342,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = UserLocation;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
 
 /***/ },
 
-/***/ 234:
+/***/ 235:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(227);
-	var NextButton = __webpack_require__(229);
+	var Header = __webpack_require__(228);
+	var NextButton = __webpack_require__(231);
+	var EnterAnimate = __webpack_require__(229);
 
 	var chartStyle = {
 	  width: '800',
@@ -2374,7 +2433,7 @@ webpackJsonp([0],{
 
 	  render: function() {
 	    return (
-	      React.createElement("div", null, 
+	      React.createElement(EnterAnimate, null, 
 	        React.createElement(Header, null, "UserScale—Chart 1"), 
 	        React.createElement("div", {className: "ui one colum centered grid"}, 
 	          React.createElement("div", {className: "colum"}, 
@@ -2390,18 +2449,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = UserScaleOne;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
 
 /***/ },
 
-/***/ 235:
+/***/ 236:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(227);
-	var NextButton = __webpack_require__(229);
+	var Header = __webpack_require__(228);
+	var NextButton = __webpack_require__(231);
+	var EnterAnimate = __webpack_require__(229);
 
 	var chartStyle = {
 	  width: '800',
@@ -2480,7 +2540,7 @@ webpackJsonp([0],{
 
 	  render: function() {
 	    return (
-	      React.createElement("div", null, 
+	      React.createElement(EnterAnimate, null, 
 	        React.createElement(Header, null, "UserScale—Chart 2"), 
 	        React.createElement("div", {className: "ui one colum centered grid"}, 
 	          React.createElement("div", {className: "colum"}, 
@@ -2496,18 +2556,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = UserScaleTwo;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
 
 /***/ },
 
-/***/ 236:
+/***/ 237:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(227);
-	var NextButton = __webpack_require__(229);
+	var Header = __webpack_require__(228);
+	var NextButton = __webpack_require__(231);
+	var EnterAnimate = __webpack_require__(229);
 
 	var ArchitecturePage = React.createClass({displayName: "ArchitecturePage",
 	  componentDidMount: function(){
@@ -2517,7 +2578,7 @@ webpackJsonp([0],{
 	  
 	  render: function() {
 	    return (
-	      React.createElement("div", null, 
+	      React.createElement(EnterAnimate, null, 
 	        React.createElement(Header, null, "Architecture"), 
 	        React.createElement("div", {className: "ui one colum centered grid"}, 
 
@@ -2531,18 +2592,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = ArchitecturePage;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
 
 /***/ },
 
-/***/ 237:
+/***/ 238:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(227);
-	var NextButton = __webpack_require__(229);
+	var Header = __webpack_require__(228);
+	var NextButton = __webpack_require__(231);
+	var EnterAnimate = __webpack_require__(229);
 
 	var OtherPage = React.createClass({displayName: "OtherPage",
 	  componentDidMount: function(){
@@ -2552,7 +2614,7 @@ webpackJsonp([0],{
 	  
 	  render: function() {
 	    return (
-	      React.createElement("div", null, 
+	      React.createElement(EnterAnimate, null, 
 	        React.createElement(Header, null, "What's more"), 
 	        React.createElement("div", {className: "ui one colum centered grid"}, 
 
@@ -2566,18 +2628,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = OtherPage;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
 
 /***/ },
 
-/***/ 238:
+/***/ 239:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(227);
-	var NextButton = __webpack_require__(229);
+	var Header = __webpack_require__(228);
+	var NextButton = __webpack_require__(231);
+	var EnterAnimate = __webpack_require__(229);
 
 	var AboutPage = React.createClass({displayName: "AboutPage",
 	  componentDidMount: function(){
@@ -2587,7 +2650,7 @@ webpackJsonp([0],{
 
 	  render: function() {
 	    return (
-	      React.createElement("div", null, 
+	      React.createElement(EnterAnimate, null, 
 	        React.createElement(Header, null, "About"), 
 	        React.createElement("div", {className: "ui one colum centered grid"}
 
@@ -2599,16 +2662,16 @@ webpackJsonp([0],{
 	});
 
 	module.exports = AboutPage;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
 
 /***/ },
 
-/***/ 239:
+/***/ 240:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {var React = __webpack_require__(1);
 
-	var $ = jQuery = __webpack_require__(231);
+	var $ = jQuery = __webpack_require__(227);
 	window.jQuery = $;
 
 	var menuButtonStyle = {
@@ -2639,7 +2702,7 @@ webpackJsonp([0],{
 	});
 
 	module.exports = MenuButton;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
 
 /***/ }
 

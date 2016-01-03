@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 
 var Header = require('../component/header.js');
 var NextButton = require('../component/next-button.js');
+var EnterAnimate = require('../component/enter-animate.js');
 
 var ArchitecturePage = React.createClass({
   componentDidMount: function(){
@@ -12,7 +13,7 @@ var ArchitecturePage = React.createClass({
   
   render: function() {
     return (
-      <div>
+      <EnterAnimate>
         <Header>Architecture</Header>
         <div className="ui one colum centered grid">
 
@@ -20,7 +21,7 @@ var ArchitecturePage = React.createClass({
             <NextButton url="/about"></NextButton>
           </div>
         </div>
-      </div>
+      </EnterAnimate>
     );
   }
 });

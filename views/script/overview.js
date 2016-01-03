@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 
 var Header = require('../component/header.js');
 var NextButton = require('../component/next-button.js');
+var EnterAnimate = require('../component/enter-animate.js');
 
 var mainContainerStyle = {
   marginTop: '5%',
@@ -26,7 +27,7 @@ var OverView = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <EnterAnimate>
         <div>
           <Header>OverView</Header>
         </div>
@@ -50,7 +51,7 @@ var OverView = React.createClass({
           </div>
 
         </div>
-      </div>
+      </EnterAnimate>
     );
   }
 });

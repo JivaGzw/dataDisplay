@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 
 var Header = require('../component/header.js');
 var NextButton = require('../component/next-button.js');
+var EnterAnimate = require('../component/enter-animate.js');
 
 var chartStyle = {
   width: '800',
@@ -101,7 +102,7 @@ var DigitalCamera = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <EnterAnimate>
         <Header>DigitalCamera</Header>
         <div className="ui one colum centered grid">
           <div className="colum">
@@ -111,7 +112,7 @@ var DigitalCamera = React.createClass({
             <NextButton url="/tuchong/lens"></NextButton>
           </div>
         </div>
-      </div>
+      </EnterAnimate>
     );
   }
 });
