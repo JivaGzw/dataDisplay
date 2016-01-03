@@ -74,4 +74,4 @@ var routes = (
   </Router>
 );
 
-ReactDOM.render(routes, document.getElementById('content'));
+ReactDOM.render(routes, document.body);

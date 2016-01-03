@@ -19,6 +19,11 @@ var nextButtonStyle = {
 };
 
 var OverView = React.createClass({
+  componentDidMount: function() {
+    $('.ui.sidebar.uncover.visible')
+      .sidebar('hide');
+  },
+
   render: function() {
     return (
       <div>

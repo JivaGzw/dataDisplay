@@ -19,10 +19,10 @@ var NavList = React.createClass({
   },
 
   componentDidMount: function() {
-    $('.ui.sidebar.inverted.vertical.menu')
+    /*$('.ui.sidebar.inverted.vertical.menu')
       .sidebar({
         context: $('#content')
-      });
+      });*/
   },
 
   render: function() {

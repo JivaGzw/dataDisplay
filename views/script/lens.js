@@ -41,7 +41,7 @@ var Lens = React.createClass({
   renderChart: function() {
     // 基于准备好的dom，初始化echarts图表
     $('.ui.sidebar.uncover.visible')
-      .sidebar('toggle');
+      .sidebar('hide');
 
     this.loadDataFormServer();
     var myChart = echarts.init(document.getElementById('chart-container')); 

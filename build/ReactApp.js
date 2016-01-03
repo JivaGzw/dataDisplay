@@ -12,9 +12,9 @@ webpackJsonp([0],{
 	var Animate = __webpack_require__(207);
 
 	var NavList = __webpack_require__(225);
-	var Home = __webpack_require__(227);
-	var OverView = __webpack_require__(229);
-	var DigitalCamera = __webpack_require__(231);
+	var Home = __webpack_require__(226);
+	var OverView = __webpack_require__(228);
+	var DigitalCamera = __webpack_require__(230);
 	var Lens = __webpack_require__(232);
 	var Userlocation = __webpack_require__(233);
 	var UserScaleOne = __webpack_require__(234);
@@ -79,7 +79,7 @@ webpackJsonp([0],{
 	  )
 	);
 
-	ReactDOM.render(routes, document.getElementById('content'));
+	ReactDOM.render(routes, document.body);
 
 /***/ },
 
@@ -1480,7 +1480,7 @@ webpackJsonp([0],{
 /***/ 225:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
+	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 	var Link = __webpack_require__(158).Link;
 
@@ -1501,10 +1501,10 @@ webpackJsonp([0],{
 	  },
 
 	  componentDidMount: function() {
-	    $('.ui.sidebar.inverted.vertical.menu')
+	    /*$('.ui.sidebar.inverted.vertical.menu')
 	      .sidebar({
 	        context: $('#content')
-	      });
+	      });*/
 	  },
 
 	  render: function() {
@@ -1597,19 +1597,18 @@ webpackJsonp([0],{
 	});
 
 	module.exports = NavList;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(226)))
 
 /***/ },
 
-/***/ 227:
+/***/ 226:
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 	var Link = __webpack_require__(158).Link;
 	var Animate = __webpack_require__(207);
 
-	var Header = __webpack_require__(228);
+	var Header = __webpack_require__(227);
 
 	var mainContainerStyle = {
 	  marginTop: '5%'
@@ -1624,6 +1623,11 @@ webpackJsonp([0],{
 	};
 
 	var Home = React.createClass({displayName: "Home",
+	  componentDidMount: function(){
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
+	  },
+
 	  render: function() {
 	    return (
 	      React.createElement("div", null, 
@@ -1652,10 +1656,11 @@ webpackJsonp([0],{
 	});
 
 	module.exports = Home;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
 
 /***/ },
 
-/***/ 228:
+/***/ 227:
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -1683,14 +1688,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 229:
+/***/ 228:
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(230);
+	var Header = __webpack_require__(227);
+	var NextButton = __webpack_require__(229);
 
 	var mainContainerStyle = {
 	  marginTop: '5%',
@@ -1707,6 +1712,11 @@ webpackJsonp([0],{
 	};
 
 	var OverView = React.createClass({displayName: "OverView",
+	  componentDidMount: function() {
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
+	  },
+
 	  render: function() {
 	    return (
 	      React.createElement("div", null, 
@@ -1739,10 +1749,11 @@ webpackJsonp([0],{
 	});
 
 	module.exports = OverView;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
 
 /***/ },
 
-/***/ 230:
+/***/ 229:
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -1767,14 +1778,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 231:
+/***/ 230:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(230);
+	var Header = __webpack_require__(227);
+	var NextButton = __webpack_require__(229);
 
 	var chartStyle = {
 	  width: '800',
@@ -1811,6 +1822,8 @@ webpackJsonp([0],{
 	  },
 
 	  componentDidMount: function() {
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
 	    // 基于准备好的dom，初始化echarts图表
 	    this.loadDataFormServer();
 	    var myChart = echarts.init(document.getElementById('chart-container')); 
@@ -1887,7 +1900,7 @@ webpackJsonp([0],{
 	});
 
 	module.exports = DigitalCamera;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(226)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
 
 /***/ },
 
@@ -1897,8 +1910,8 @@ webpackJsonp([0],{
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(230);
+	var Header = __webpack_require__(227);
+	var NextButton = __webpack_require__(229);
 
 	var chartStyle = {
 	  width: '800',
@@ -1937,7 +1950,7 @@ webpackJsonp([0],{
 	  renderChart: function() {
 	    // 基于准备好的dom，初始化echarts图表
 	    $('.ui.sidebar.uncover.visible')
-	      .sidebar('toggle');
+	      .sidebar('hide');
 
 	    this.loadDataFormServer();
 	    var myChart = echarts.init(document.getElementById('chart-container')); 
@@ -2105,7 +2118,7 @@ webpackJsonp([0],{
 	});
 
 	module.exports = Lens;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(226)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
 
 /***/ },
 
@@ -2115,8 +2128,8 @@ webpackJsonp([0],{
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(230);
+	var Header = __webpack_require__(227);
+	var NextButton = __webpack_require__(229);
 
 	var chartStyle = {
 	  width: '800',
@@ -2153,6 +2166,9 @@ webpackJsonp([0],{
 	  },
 
 	  componentDidMount: function() {
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
+
 	    // 基于准备好的dom，初始化echarts图表
 	    this.loadDataFormServer();
 	    var myChart = echarts.init(document.getElementById('chart-container')); 
@@ -2268,7 +2284,7 @@ webpackJsonp([0],{
 	});
 
 	module.exports = UserLocation;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(226)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
 
 /***/ },
 
@@ -2278,8 +2294,8 @@ webpackJsonp([0],{
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(230);
+	var Header = __webpack_require__(227);
+	var NextButton = __webpack_require__(229);
 
 	var chartStyle = {
 	  width: '800',
@@ -2316,6 +2332,8 @@ webpackJsonp([0],{
 	  },
 
 	  componentDidMount: function() {
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
 	    // 基于准备好的dom，初始化echarts图表
 	    this.loadDataFormServer();
 	    var myChart = echarts.init(document.getElementById('user-scale-chart')); 
@@ -2372,7 +2390,7 @@ webpackJsonp([0],{
 	});
 
 	module.exports = UserScaleOne;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(226)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
 
 /***/ },
 
@@ -2382,8 +2400,8 @@ webpackJsonp([0],{
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(230);
+	var Header = __webpack_require__(227);
+	var NextButton = __webpack_require__(229);
 
 	var chartStyle = {
 	  width: '800',
@@ -2420,6 +2438,8 @@ webpackJsonp([0],{
 	  },
 
 	  componentDidMount: function() {
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
 	    // 基于准备好的dom，初始化echarts图表
 	    this.loadDataFormServer();
 	    var myChart = echarts.init(document.getElementById('chart-container')); 
@@ -2476,20 +2496,25 @@ webpackJsonp([0],{
 	});
 
 	module.exports = UserScaleTwo;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(226)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
 
 /***/ },
 
 /***/ 236:
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(230);
+	var Header = __webpack_require__(227);
+	var NextButton = __webpack_require__(229);
 
 	var ArchitecturePage = React.createClass({displayName: "ArchitecturePage",
+	  componentDidMount: function(){
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
+	  },
+	  
 	  render: function() {
 	    return (
 	      React.createElement("div", null, 
@@ -2506,19 +2531,25 @@ webpackJsonp([0],{
 	});
 
 	module.exports = ArchitecturePage;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
 
 /***/ },
 
 /***/ 237:
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(230);
+	var Header = __webpack_require__(227);
+	var NextButton = __webpack_require__(229);
 
 	var OtherPage = React.createClass({displayName: "OtherPage",
+	  componentDidMount: function(){
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
+	  },
+	  
 	  render: function() {
 	    return (
 	      React.createElement("div", null, 
@@ -2535,19 +2566,25 @@ webpackJsonp([0],{
 	});
 
 	module.exports = OtherPage;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
 
 /***/ },
 
 /***/ 238:
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(230);
+	var Header = __webpack_require__(227);
+	var NextButton = __webpack_require__(229);
 
 	var AboutPage = React.createClass({displayName: "AboutPage",
+	  componentDidMount: function(){
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
+	  },
+
 	  render: function() {
 	    return (
 	      React.createElement("div", null, 
@@ -2562,6 +2599,7 @@ webpackJsonp([0],{
 	});
 
 	module.exports = AboutPage;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
 
 /***/ },
 
@@ -2570,7 +2608,7 @@ webpackJsonp([0],{
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {var React = __webpack_require__(1);
 
-	var $ = jQuery = __webpack_require__(226);
+	var $ = jQuery = __webpack_require__(231);
 	window.jQuery = $;
 
 	var menuButtonStyle = {
@@ -2601,7 +2639,7 @@ webpackJsonp([0],{
 	});
 
 	module.exports = MenuButton;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(226)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(231)))
 
 /***/ }
 

@@ -5,6 +5,11 @@ var Header = require('../component/header.js');
 var NextButton = require('../component/next-button.js');
 
 var AboutPage = React.createClass({
+  componentDidMount: function(){
+    $('.ui.sidebar.uncover.visible')
+      .sidebar('hide');
+  },
+
   render: function() {
     return (
       <div>

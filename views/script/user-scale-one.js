@@ -39,6 +39,8 @@ var UserScaleOne = React.createClass({
   },
 
   componentDidMount: function() {
+    $('.ui.sidebar.uncover.visible')
+      .sidebar('hide');
     // 基于准备好的dom，初始化echarts图表
     this.loadDataFormServer();
     var myChart = echarts.init(document.getElementById('user-scale-chart')); 
