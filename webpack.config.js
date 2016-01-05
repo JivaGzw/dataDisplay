@@ -3,7 +3,7 @@ var webpack = require('webpack');
 module.exports = {
   entry: {
     ReactApp: './views/script/react-app.js',
-    vendor: ["react", "react-dom", "react-router", "jquery", "semantic-ui/dist/semantic.js", "./public/echarts-2.2.7/build/dist/echarts-all.js"]
+    vendor: ["react", "react-dom", "react-router", "jquery", "semantic-ui/dist/semantic.js", "./public/echarts-2.2.7/build/dist/echarts-all.js", "pubsub-js"]
   },
   output: {
     path: './build',

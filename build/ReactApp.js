@@ -3,47 +3,54 @@ webpackJsonp([0],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
-	var Router = __webpack_require__(158).Router;
-	var Route = __webpack_require__(158).Route;
-	var IndexRoute = __webpack_require__(158).IndexRoute;
-	var Link = __webpack_require__(158).Link;
-	var Animate = __webpack_require__(207);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
+	var Router = __webpack_require__(159).Router;
+	var Route = __webpack_require__(159).Route;
+	var IndexRoute = __webpack_require__(159).IndexRoute;
+	var Link = __webpack_require__(159).Link;
+	var PubSub = __webpack_require__(208);
 
-	var NavList = __webpack_require__(225);
-	var Home = __webpack_require__(226);
-	var OverView = __webpack_require__(230);
-	var DigitalCamera = __webpack_require__(232);
-	var Lens = __webpack_require__(233);
-	var Userlocation = __webpack_require__(234);
-	var UserScaleOne = __webpack_require__(235);
-	var UserScaleTwo = __webpack_require__(236);
-	var ArchitecturePage = __webpack_require__(237);
-	var OtherPage = __webpack_require__(238);
-	var AboutPage = __webpack_require__(239);
-	var MenuButton = __webpack_require__(240);
+	var NavList = __webpack_require__(209);
+	var Home = __webpack_require__(210);
+	var OverView = __webpack_require__(231);
+	var DigitalCamera = __webpack_require__(233);
+	var Lens = __webpack_require__(234);
+	var Userlocation = __webpack_require__(235);
+	var UserScaleOne = __webpack_require__(236);
+	var UserScaleTwo = __webpack_require__(237);
+	var ArchitecturePage = __webpack_require__(238);
+	var OtherPage = __webpack_require__(239);
+	var AboutPage = __webpack_require__(240);
+	var MenuButton = __webpack_require__(241);
 
 	var fullScreenStyle = {
 	  width: '100%',
 	  height: '100%'
 	};
 
-	var initStyle = {
-	  opacity: Animate.spring(1)
-	}
-
 	var App = React.createClass({displayName: "App",
-	  willEnter: function() {
-	    return {
-	      opacity: Animate.spring(0)
-	    };
+	  loadDataFormServer: function() {
+	    $.ajax({
+	      type: 'post',
+	      url: '/data',
+	      dataType: 'json',
+	      cache: true,
+	      success: function(result){
+	        PubSub.publish('data', result);
+	      }.bind(this),
+	      error: function(xhr, status, err){
+	        console.log(this.props.url, status, err);
+	      }.bind(this)
+	    });
 	  },
 
-	  willLeave: function() {
-	    return {
-	      opacity: Animate.spring(0)
-	    };
+	  componentDidMount: function() {
+	    this.loadDataFormServer();
+	  },
+
+	  componentWillUnmount: function() {
+	    PubSub.unsubscribe()
 	  },
 
 	  render: function() {
@@ -80,10 +87,276 @@ webpackJsonp([0],{
 	);
 
 	ReactDOM.render(routes, document.body);
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 
-/***/ 207:
+/***/ 209:
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
+	var Link = __webpack_require__(159).Link;
+
+	var logoContainerStyle = {
+	  padding: '10'
+	};
+
+	var logoImageStyle = {
+	  width: '80',
+	  marginRight: '1em'
+	};
+
+	var NavList = React.createClass({displayName: "NavList",
+	  getInitialState: function() {
+	    return {
+	      showNav: false
+	    };
+	  },
+
+	  componentDidMount: function() {
+	    /*$('.ui.sidebar.inverted.vertical.menu')
+	      .sidebar({
+	        context: $('#content')
+	      });*/
+	  },
+
+	  render: function() {
+	    return (
+	      React.createElement("div", {className: "ui sidebar inverted vertical menu"}, 
+	        React.createElement("div", {className: "item", style: logoContainerStyle}, 
+	          React.createElement("div", {className: "ui center aligned container"}, 
+	            React.createElement("a", {className: "ui logo icon image", style: logoImageStyle, href: "/"}, 
+	              React.createElement("img", {src: "/images/jiva-logo.png"})
+	            )
+	          )
+	        ), 
+
+	        React.createElement(Link, {to: "/", className: "item"}, 
+	          React.createElement("b", null, "Home")
+	        ), 
+	        React.createElement("div", {className: "item"}, 
+	          React.createElement("div", {className: "header"}, 
+	            "Summarize"
+	          ), 
+	          React.createElement("div", {className: "menu"}, 
+	            React.createElement(Link, {to: "tuchong/overview", className: "item"}, 
+	              "OverView"
+	            ), 
+	            React.createElement(Link, {to: "tuchong/digitalcamera", className: "item"}, 
+	              "1. Digital Camera"
+	            ), 
+	            React.createElement(Link, {to: "tuchong/lens", className: "item"}, 
+	              "2. Camera Lens"
+	            ), 
+	            React.createElement(Link, {to: "tuchong/userscale/chart/1", className: "item"}, 
+	              "3. User Scale Chart 1"
+	            ), 
+	            React.createElement(Link, {to: "tuchong/userscale/chart/2", className: "item"}, 
+	              "4. User Scale Chart 2"
+	            ), 
+	            React.createElement(Link, {to: "tuchong/userlocation", className: "item"}, 
+	              "5. User Location"
+	            ), 
+	            React.createElement(Link, {to: "other", className: "item"}, 
+	              "6. Other"
+	            )
+	          )
+	        ), 
+	        React.createElement(Link, {to: "architecture", className: "item"}, 
+	          React.createElement("b", null, "Architecture")
+	        ), 
+	        React.createElement(Link, {to: "about", className: "item"}, 
+	          React.createElement("b", null, "About")
+	        ), 
+	        
+	        React.createElement("div", {className: "item"}, 
+	          React.createElement("h5", {className: "ui grey horizontal divider inverted header"}, 
+	            "Technical Assistance"
+	          ), 
+	          React.createElement("div", {className: "menu"}, 
+	            React.createElement("div", {className: "item"}, 
+	              "React.js"
+	            ), 
+	            React.createElement("div", {className: "item"}, 
+	              "Node.js"
+	            ), 
+	            React.createElement("div", {className: "item"}, 
+	              "Express.js"
+	            ), 
+	            React.createElement("div", {className: "item"}, 
+	              "SemanticUI"
+	            ), 
+	            React.createElement("div", {className: "item"}, 
+	              "ECharts"
+	            ), 
+	            React.createElement("div", {className: "item"}, 
+	              "Mongodb"
+	            ), 
+	            React.createElement("div", {className: "item"}, 
+	              "Redis"
+	            )
+	          )
+	          
+	        ), 
+
+	        React.createElement("div", {className: "item"}, 
+	          React.createElement("h4", {className: "ui horizontal divider inverted header"}, 
+	            React.createElement("i", {className: "copyright icon"})
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = NavList;
+
+/***/ },
+
+/***/ 210:
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
+	var Link = __webpack_require__(159).Link;
+
+
+	var Header = __webpack_require__(211);
+	var EnterAnimate = __webpack_require__(212);
+
+	var mainContainerStyle = {
+	  marginTop: '5%'
+	};
+
+	var imgContainerStyle = {
+	  marginTop: '2em'
+	};
+
+	var textContainerStyle = {
+	  marginTop: '3em'
+	};
+
+	var Home = React.createClass({displayName: "Home",
+	  componentDidMount: function(){
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
+	  },
+
+	  render: function() {
+	    return (
+	      React.createElement(EnterAnimate, null, 
+	        React.createElement(Header, null, "A Summarize Of tuchong.com"), 
+	        
+	        React.createElement("div", {className: "ui inverted vertical masthead center aligned segment", style: mainContainerStyle}, 
+	          React.createElement("div", {className: "ui center aligned container", style: imgContainerStyle}, 
+	            React.createElement("img", {src: "/images/tuchong-logo.png"})
+	          ), 
+	          React.createElement("div", {className: "ui center aligned text container", style: textContainerStyle}, 
+	            React.createElement("h2", null, 
+	              "2015 has passed, and so many friends in tuchong.com has been post themselves annual summary."
+	            ), 
+	            React.createElement("h2", null, 
+	              "Now,it's time to help tuchong.com do a summary!"
+	            ), 
+	            React.createElement(Link, {to: "/tuchong/overview", className: "ui huge inverted orange button"}, 
+	              "Get Started", 
+	              React.createElement("i", {className: "right arrow icon"})
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Home;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+
+/***/ 211:
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+
+	var headerContainerStyle = {
+	  margin: '1.8em',
+	  fontSize: '2em'
+	};
+
+	var Header = React.createClass({displayName: "Header",
+	  render: function() {
+	    return (
+	      React.createElement("div", null, 
+	        React.createElement("div", {className: "ui container", style: headerContainerStyle}, 
+	          React.createElement("h1", {className: "ui center aligned dividing huge header"}, 
+	            this.props.children
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Header;
+
+/***/ },
+
+/***/ 212:
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
+	var Animate = __webpack_require__(213);
+
+	var EnterAnimate = React.createClass({displayName: "EnterAnimate",
+	  getDefalutStyle: function() {
+	    return {
+	      x: 0,
+	      y: 0,
+	      z: 0
+	    }
+	  },
+
+	  getStyle: function() {
+	    return {
+	      x: Animate.spring(1,[100,100]),
+	      y: Animate.spring(0.5,[100,100]),
+	      z: Animate.spring(1,[180,60])
+	    }
+	  },
+
+	  render: function() {
+	    return (
+	      React.createElement(Animate.Motion, {defaultStyle: this.getDefalutStyle(), style: this.getStyle()}, 
+	        
+	          function(obj){
+	            return (
+	              React.createElement("div", {style: {perspective: 1500}}, 
+	                React.createElement("div", {style: {
+	                  opacity: obj.x,
+	                  transform: "rotateY("+(50-50*obj.z)+"deg)",
+	                  transformOrigin: "0% 50%"
+	                }}, 
+	                  this.props.children
+	                )
+	              )
+	              
+	            )
+	            
+	          }.bind(this)
+	        
+	      )
+	    );
+	  }
+	});
+
+	module.exports = EnterAnimate;
+
+/***/ },
+
+/***/ 213:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -92,15 +365,15 @@ webpackJsonp([0],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _react = __webpack_require__(1);
+	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _components2 = __webpack_require__(208);
+	var _components2 = __webpack_require__(214);
 
 	var _components3 = _interopRequireDefault(_components2);
 
-	var _reorderKeys = __webpack_require__(224);
+	var _reorderKeys = __webpack_require__(230);
 
 	var _reorderKeys2 = _interopRequireDefault(_reorderKeys);
 
@@ -117,13 +390,13 @@ webpackJsonp([0],{
 	exports.StaggeredMotion = StaggeredMotion;
 	exports.TransitionMotion = TransitionMotion;
 
-	var _spring2 = __webpack_require__(220);
+	var _spring2 = __webpack_require__(226);
 
 	var _spring3 = _interopRequireDefault(_spring2);
 
 	exports.spring = _spring3['default'];
 
-	var _presets2 = __webpack_require__(221);
+	var _presets2 = __webpack_require__(227);
 
 	var _presets3 = _interopRequireDefault(_presets2);
 
@@ -135,7 +408,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 208:
+/***/ 214:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -148,33 +421,33 @@ webpackJsonp([0],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _noVelocity = __webpack_require__(209);
+	var _noVelocity = __webpack_require__(215);
 
 	var _noVelocity2 = _interopRequireDefault(_noVelocity);
 
-	var _hasReachedStyle = __webpack_require__(210);
+	var _hasReachedStyle = __webpack_require__(216);
 
 	var _hasReachedStyle2 = _interopRequireDefault(_hasReachedStyle);
 
-	var _mergeDiff = __webpack_require__(211);
+	var _mergeDiff = __webpack_require__(217);
 
 	var _mergeDiff2 = _interopRequireDefault(_mergeDiff);
 
-	var _animationLoop = __webpack_require__(212);
+	var _animationLoop = __webpack_require__(218);
 
 	var _animationLoop2 = _interopRequireDefault(_animationLoop);
 
-	var _zero = __webpack_require__(217);
+	var _zero = __webpack_require__(223);
 
 	var _zero2 = _interopRequireDefault(_zero);
 
-	var _updateTree = __webpack_require__(218);
+	var _updateTree = __webpack_require__(224);
 
-	var _deprecatedSprings2 = __webpack_require__(222);
+	var _deprecatedSprings2 = __webpack_require__(228);
 
 	var _deprecatedSprings3 = _interopRequireDefault(_deprecatedSprings2);
 
-	var _stripStyle = __webpack_require__(223);
+	var _stripStyle = __webpack_require__(229);
 
 	var _stripStyle2 = _interopRequireDefault(_stripStyle);
 
@@ -595,7 +868,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 209:
+/***/ 215:
 /***/ function(module, exports) {
 
 	
@@ -623,7 +896,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 210:
+/***/ 216:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -657,7 +930,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 211:
+/***/ 217:
 /***/ function(module, exports) {
 
 	
@@ -774,7 +1047,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 212:
+/***/ 218:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -784,11 +1057,11 @@ webpackJsonp([0],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _performanceNow = __webpack_require__(213);
+	var _performanceNow = __webpack_require__(219);
 
 	var _performanceNow2 = _interopRequireDefault(_performanceNow);
 
-	var _raf = __webpack_require__(215);
+	var _raf = __webpack_require__(221);
 
 	var _raf2 = _interopRequireDefault(_raf);
 
@@ -924,7 +1197,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 213:
+/***/ 219:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.7.1
@@ -960,11 +1233,11 @@ webpackJsonp([0],{
 
 	}).call(this);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(214)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(220)))
 
 /***/ },
 
-/***/ 214:
+/***/ 220:
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -1062,10 +1335,10 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 215:
+/***/ 221:
 /***/ function(module, exports, __webpack_require__) {
 
-	var now = __webpack_require__(216)
+	var now = __webpack_require__(222)
 	  , global = typeof window === 'undefined' ? {} : window
 	  , vendors = ['moz', 'webkit']
 	  , suffix = 'AnimationFrame'
@@ -1137,7 +1410,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 216:
+/***/ 222:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.7.1
@@ -1173,11 +1446,11 @@ webpackJsonp([0],{
 
 	}).call(this);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(214)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(220)))
 
 /***/ },
 
-/***/ 217:
+/***/ 223:
 /***/ function(module, exports) {
 
 	
@@ -1195,7 +1468,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 218:
+/***/ 224:
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -1210,11 +1483,11 @@ webpackJsonp([0],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _stepper = __webpack_require__(219);
+	var _stepper = __webpack_require__(225);
 
 	var _stepper2 = _interopRequireDefault(_stepper);
 
-	var _spring = __webpack_require__(220);
+	var _spring = __webpack_require__(226);
 
 	var _spring2 = _interopRequireDefault(_spring);
 
@@ -1292,7 +1565,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 219:
+/***/ 225:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1331,7 +1604,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 220:
+/***/ 226:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1341,7 +1614,7 @@ webpackJsonp([0],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _presets = __webpack_require__(221);
+	var _presets = __webpack_require__(227);
 
 	var _presets2 = _interopRequireDefault(_presets);
 
@@ -1355,7 +1628,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 221:
+/***/ 227:
 /***/ function(module, exports) {
 
 	
@@ -1373,7 +1646,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 222:
+/***/ 228:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1427,7 +1700,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 223:
+/***/ 229:
 /***/ function(module, exports) {
 
 	
@@ -1454,7 +1727,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 224:
+/***/ 230:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1477,280 +1750,15 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 225:
+/***/ 231:
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
-	var Link = __webpack_require__(158).Link;
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
 
-	var logoContainerStyle = {
-	  padding: '10'
-	};
-
-	var logoImageStyle = {
-	  width: '80',
-	  marginRight: '1em'
-	};
-
-	var NavList = React.createClass({displayName: "NavList",
-	  getInitialState: function() {
-	    return {
-	      showNav: false
-	    };
-	  },
-
-	  componentDidMount: function() {
-	    /*$('.ui.sidebar.inverted.vertical.menu')
-	      .sidebar({
-	        context: $('#content')
-	      });*/
-	  },
-
-	  render: function() {
-	    return (
-	      React.createElement("div", {className: "ui sidebar inverted vertical menu"}, 
-	        React.createElement("div", {className: "item", style: logoContainerStyle}, 
-	          React.createElement("div", {className: "ui center aligned container"}, 
-	            React.createElement("a", {className: "ui logo icon image", style: logoImageStyle, href: "/"}, 
-	              React.createElement("img", {src: "/images/jiva-logo.png"})
-	            )
-	          )
-	        ), 
-
-	        React.createElement(Link, {to: "/", className: "item"}, 
-	          React.createElement("b", null, "Home")
-	        ), 
-	        React.createElement("div", {className: "item"}, 
-	          React.createElement("div", {className: "header"}, 
-	            "Summarize"
-	          ), 
-	          React.createElement("div", {className: "menu"}, 
-	            React.createElement(Link, {to: "tuchong/overview", className: "item"}, 
-	              "OverView"
-	            ), 
-	            React.createElement(Link, {to: "tuchong/digitalcamera", className: "item"}, 
-	              "1. Digital Camera"
-	            ), 
-	            React.createElement(Link, {to: "tuchong/lens", className: "item"}, 
-	              "2. Camera Lens"
-	            ), 
-	            React.createElement(Link, {to: "tuchong/userscale/chart/1", className: "item"}, 
-	              "3. User Scale Chart 1"
-	            ), 
-	            React.createElement(Link, {to: "tuchong/userscale/chart/2", className: "item"}, 
-	              "4. User Scale Chart 2"
-	            ), 
-	            React.createElement(Link, {to: "tuchong/userlocation", className: "item"}, 
-	              "5. User Location"
-	            ), 
-	            React.createElement(Link, {to: "other", className: "item"}, 
-	              "6. Other"
-	            )
-	          )
-	        ), 
-	        React.createElement(Link, {to: "architecture", className: "item"}, 
-	          React.createElement("b", null, "Architecture")
-	        ), 
-	        React.createElement(Link, {to: "about", className: "item"}, 
-	          React.createElement("b", null, "About")
-	        ), 
-	        
-	        React.createElement("div", {className: "item"}, 
-	          React.createElement("h5", {className: "ui grey horizontal divider inverted header"}, 
-	            "Technical Assistance"
-	          ), 
-	          React.createElement("div", {className: "menu"}, 
-	            React.createElement("div", {className: "item"}, 
-	              "React.js"
-	            ), 
-	            React.createElement("div", {className: "item"}, 
-	              "Node.js"
-	            ), 
-	            React.createElement("div", {className: "item"}, 
-	              "Express.js"
-	            ), 
-	            React.createElement("div", {className: "item"}, 
-	              "SemanticUI"
-	            ), 
-	            React.createElement("div", {className: "item"}, 
-	              "ECharts"
-	            ), 
-	            React.createElement("div", {className: "item"}, 
-	              "Mongodb"
-	            ), 
-	            React.createElement("div", {className: "item"}, 
-	              "Redis"
-	            )
-	          )
-	          
-	        ), 
-
-	        React.createElement("div", {className: "item"}, 
-	          React.createElement("h4", {className: "ui horizontal divider inverted header"}, 
-	            React.createElement("i", {className: "copyright icon"})
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = NavList;
-
-/***/ },
-
-/***/ 226:
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
-	var Link = __webpack_require__(158).Link;
-
-
-	var Header = __webpack_require__(228);
-	var EnterAnimate = __webpack_require__(229);
-
-	var mainContainerStyle = {
-	  marginTop: '5%'
-	};
-
-	var imgContainerStyle = {
-	  marginTop: '2em'
-	};
-
-	var textContainerStyle = {
-	  marginTop: '3em'
-	};
-
-	var Home = React.createClass({displayName: "Home",
-	  componentDidMount: function(){
-	    $('.ui.sidebar.uncover.visible')
-	      .sidebar('hide');
-	  },
-
-	  render: function() {
-	    return (
-	      React.createElement(EnterAnimate, null, 
-	        React.createElement(Header, null, "A Summarize Of tuchong.com"), 
-	        
-	        React.createElement("div", {className: "ui inverted vertical masthead center aligned segment", style: mainContainerStyle}, 
-	          React.createElement("div", {className: "ui center aligned container", style: imgContainerStyle}, 
-	            React.createElement("img", {src: "/images/tuchong-logo.png"})
-	          ), 
-	          React.createElement("div", {className: "ui center aligned text container", style: textContainerStyle}, 
-	            React.createElement("h2", null, 
-	              "2015 has passed, and so many friends in tuchong.com has been post themselves annual summary."
-	            ), 
-	            React.createElement("h2", null, 
-	              "Now,it's time to help tuchong.com do a summary!"
-	            ), 
-	            React.createElement(Link, {to: "/tuchong/overview", className: "ui huge inverted orange button"}, 
-	              "Get Started", 
-	              React.createElement("i", {className: "right arrow icon"})
-	            )
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = Home;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
-
-/***/ },
-
-/***/ 228:
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-
-	var headerContainerStyle = {
-	  margin: '1.8em',
-	  fontSize: '2em'
-	};
-
-	var Header = React.createClass({displayName: "Header",
-	  render: function() {
-	    return (
-	      React.createElement("div", null, 
-	        React.createElement("div", {className: "ui container", style: headerContainerStyle}, 
-	          React.createElement("h1", {className: "ui center aligned dividing huge header"}, 
-	            this.props.children
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = Header;
-
-/***/ },
-
-/***/ 229:
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
-	var Animate = __webpack_require__(207);
-
-	var EnterAnimate = React.createClass({displayName: "EnterAnimate",
-	  getDefalutStyle: function() {
-	    return {
-	      x: 0,
-	      y: 0,
-	      z: 0
-	    }
-	  },
-
-	  getStyle: function() {
-	    return {
-	      x: Animate.spring(1,[100,100]),
-	      y: Animate.spring(0.5,[100,100]),
-	      z: Animate.spring(1,[180,60])
-	    }
-	  },
-
-	  render: function() {
-	    return (
-	      React.createElement(Animate.Motion, {defaultStyle: this.getDefalutStyle(), style: this.getStyle()}, 
-	        
-	          function(obj){
-	            return (
-	              React.createElement("div", {style: {perspective: 1500}}, 
-	                React.createElement("div", {style: {
-	                  opacity: obj.x,
-	                  transform: "rotateY("+(50-50*obj.z)+"deg)",
-	                  transformOrigin: "0% 50%"
-	                }}, 
-	                  this.props.children
-	                )
-	              )
-	              
-	            )
-	            
-	          }.bind(this)
-	        
-	      )
-	    );
-	  }
-	});
-
-	module.exports = EnterAnimate;
-
-/***/ },
-
-/***/ 230:
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
-
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(231);
-	var EnterAnimate = __webpack_require__(229);
+	var Header = __webpack_require__(211);
+	var NextButton = __webpack_require__(232);
+	var EnterAnimate = __webpack_require__(212);
 
 	var mainContainerStyle = {
 	  marginTop: '5%',
@@ -1767,9 +1775,23 @@ webpackJsonp([0],{
 	};
 
 	var OverView = React.createClass({displayName: "OverView",
+	  getInitialState: function() {
+	    return {
+	      data: {
+	        
+	      }
+	    }
+	  },
+
 	  componentDidMount: function() {
 	    $('.ui.sidebar.uncover.visible')
 	      .sidebar('hide');
+
+	    this.overview_token = PubSub.subscribe('data', function(msg, allData) {
+	      this.setState({
+	        data: allData
+	      });
+	    });
 	  },
 
 	  render: function() {
@@ -1804,16 +1826,16 @@ webpackJsonp([0],{
 	});
 
 	module.exports = OverView;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 
-/***/ 231:
+/***/ 232:
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
-	var Link = __webpack_require__(158).Link;
+	var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
+	var Link = __webpack_require__(159).Link;
 
 	var arrowIconStyle = {
 	  margin: '0'
@@ -1833,15 +1855,15 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 232:
+/***/ 233:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(231);
-	var EnterAnimate = __webpack_require__(229);
+	var Header = __webpack_require__(211);
+	var NextButton = __webpack_require__(232);
+	var EnterAnimate = __webpack_require__(212);
 
 	var chartStyle = {
 	  width: '800',
@@ -1956,19 +1978,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = DigitalCamera;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 
-/***/ 233:
+/***/ 234:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(231);
-	var EnterAnimate = __webpack_require__(229);
+	var Header = __webpack_require__(211);
+	var NextButton = __webpack_require__(232);
+	var EnterAnimate = __webpack_require__(212);
 
 	var chartStyle = {
 	  width: '800',
@@ -2175,19 +2197,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = Lens;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 
-/***/ 234:
+/***/ 235:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(231);
-	var EnterAnimate = __webpack_require__(229);
+	var Header = __webpack_require__(211);
+	var NextButton = __webpack_require__(232);
+	var EnterAnimate = __webpack_require__(212);
 
 	var chartStyle = {
 	  width: '800',
@@ -2342,19 +2364,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = UserLocation;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 
-/***/ 235:
+/***/ 236:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(231);
-	var EnterAnimate = __webpack_require__(229);
+	var Header = __webpack_require__(211);
+	var NextButton = __webpack_require__(232);
+	var EnterAnimate = __webpack_require__(212);
 
 	var chartStyle = {
 	  width: '800',
@@ -2449,19 +2471,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = UserScaleOne;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 
-/***/ 236:
+/***/ 237:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(231);
-	var EnterAnimate = __webpack_require__(229);
+	var Header = __webpack_require__(211);
+	var NextButton = __webpack_require__(232);
+	var EnterAnimate = __webpack_require__(212);
 
 	var chartStyle = {
 	  width: '800',
@@ -2504,35 +2526,107 @@ webpackJsonp([0],{
 	    this.loadDataFormServer();
 	    var myChart = echarts.init(document.getElementById('chart-container')); 
 	    
-	    var option = {
-	        tooltip: {
-	          show: true
-	        },
-	        legend: {
-	          data:['用户数']
-	        },
-	        xAxis : [{
-	          type : 'category',
-	          name : '关注者数量',
-	          data : ["0-10","10-100","100-1000","1000-3000","3000-5000","5000-8000","8000+"]
-	        }],
-	        yAxis : [{
-	          type : 'value'
-	        }],
-	        series : [{
-	          "name":"用户数",
-	          "type":"bar",
-	          "data":[
-	            this.state.data.a,
-	            this.state.data.b,
-	            this.state.data.c,
-	            this.state.data.d,
-	            this.state.data.e,
-	            this.state.data.f,
-	            this.state.data.g
-	          ]
-	        }]
+	    var dataStyle = {
+	      normal: {
+	        label: {show:false},
+	        labelLine: {show:false}
+	      }
 	    };
+	    var placeHolderStyle = {
+	      normal : {
+	        color: 'rgba(0,0,0,0)',
+	        label: {show:false},
+	        labelLine: {show:false}
+	      },
+	      emphasis : {
+	        color: 'rgba(0,0,0,0)'
+	      }
+	    };
+	    option = {
+	      title: {
+	        text: '你幸福吗？',
+	        subtext: 'From ExcelHome',
+	        sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
+	        x: 'center',
+	        y: 'center',
+	        itemGap: 20,
+	        textStyle : {
+	          color : 'rgba(30,144,255,0.8)',
+	          fontFamily : '微软雅黑',
+	          fontSize : 35,
+	          fontWeight : 'bolder'
+	        }
+	      },
+	      tooltip : {
+	        show: true,
+	        formatter: "{a} <br/>{b} : {c} ({d}%)"
+	      },
+	      legend: {
+	        orient : 'vertical',
+	        x : document.getElementById('chart-container').offsetWidth / 2 + 10,
+	        y : 55,
+	        itemGap:12,
+	        data:['68%的人表示过的不错','29%的人表示生活压力很大','3%的人表示“我姓曾”']
+	      },
+	      toolbox: {
+	        show : true,
+	        feature : {
+	          mark : {show: true},
+	          dataView : {show: true, readOnly: false},
+	          restore : {show: true},
+	          saveAsImage : {show: true}
+	        }
+	      },
+	      series : [{
+	        name:'1',
+	        type:'pie',
+	        clockWise:false,
+	        radius : [125, 150],
+	        itemStyle : dataStyle,
+	        data:[{
+	          value:68,
+	          name:'68%的人表示过的不错'
+	        },
+	        {
+	          value:32,
+	          name:'invisible',
+	          itemStyle : placeHolderStyle
+	        }]
+	      },
+	      {
+	        name:'2',
+	        type:'pie',
+	        clockWise:false,
+	        radius : [100, 125],
+	        itemStyle : dataStyle,
+	        data:[{
+	          value:29, 
+	          name:'29%的人表示生活压力很大'
+	        },
+	        {
+	          value:71,
+	          name:'invisible',
+	          itemStyle : placeHolderStyle
+	        }]
+	      },
+	      {
+	        name:'3',
+	        type:'pie',
+	        clockWise:false,
+	        radius : [75, 100],
+	        itemStyle : dataStyle,
+	        data:[{
+	          value:3, 
+	          name:'3%的人表示“我姓曾”'
+	        },
+	        {
+	          value:97,
+	          name:'invisible',
+	          itemStyle : placeHolderStyle
+	        }]
+	      }]
+	    };
+	                        
 
 	    // 为echarts对象加载数据 
 	    myChart.setOption(option); 
@@ -2556,19 +2650,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = UserScaleTwo;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 
-/***/ 237:
+/***/ 238:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(231);
-	var EnterAnimate = __webpack_require__(229);
+	var Header = __webpack_require__(211);
+	var NextButton = __webpack_require__(232);
+	var EnterAnimate = __webpack_require__(212);
 
 	var ArchitecturePage = React.createClass({displayName: "ArchitecturePage",
 	  componentDidMount: function(){
@@ -2592,19 +2686,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = ArchitecturePage;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 
-/***/ 238:
+/***/ 239:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(231);
-	var EnterAnimate = __webpack_require__(229);
+	var Header = __webpack_require__(211);
+	var NextButton = __webpack_require__(232);
+	var EnterAnimate = __webpack_require__(212);
 
 	var OtherPage = React.createClass({displayName: "OtherPage",
 	  componentDidMount: function(){
@@ -2628,19 +2722,19 @@ webpackJsonp([0],{
 	});
 
 	module.exports = OtherPage;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 
-/***/ 239:
+/***/ 240:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(157);
+	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(158);
 
-	var Header = __webpack_require__(228);
-	var NextButton = __webpack_require__(231);
-	var EnterAnimate = __webpack_require__(229);
+	var Header = __webpack_require__(211);
+	var NextButton = __webpack_require__(232);
+	var EnterAnimate = __webpack_require__(212);
 
 	var AboutPage = React.createClass({displayName: "AboutPage",
 	  componentDidMount: function(){
@@ -2662,16 +2756,16 @@ webpackJsonp([0],{
 	});
 
 	module.exports = AboutPage;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 
-/***/ 240:
+/***/ 241:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery) {var React = __webpack_require__(1);
+	/* WEBPACK VAR INJECTION */(function(jQuery) {var React = __webpack_require__(2);
 
-	var $ = jQuery = __webpack_require__(227);
+	var $ = jQuery = __webpack_require__(1);
 	window.jQuery = $;
 
 	var menuButtonStyle = {
@@ -2702,7 +2796,7 @@ webpackJsonp([0],{
 	});
 
 	module.exports = MenuButton;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }
 

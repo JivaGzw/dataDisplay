@@ -8,11 +8,11 @@ var UserSchema = new Schema({
   registerTime: String,
   followingUser: [String],
   followersUser: [String],
-  followers: String,
-  following: String,
+  followers: Number,
+  following: Number,
   address: String,
   nickName: String, 
   id: Number
-});
+},{collection: 'tuchongUser'});
 
 exports.User = mongoose.model('User', UserSchema);

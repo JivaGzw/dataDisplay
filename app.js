@@ -11,6 +11,15 @@ var users = require('./routes/users');
 
 var app = express();
 
+//set statistic data
+var statistic = require('./middleware/statistic.js');
+statistic.getInitialStatistic(function() {
+  console.log("get initial data complete.");
+});
+statistic.refreshRedis(function() {
+  console.log("refresh redis data complete.");
+});
+
 //set connection of mongodb
 mongoose.connect('mongodb://localhost/tuchongDb');
 

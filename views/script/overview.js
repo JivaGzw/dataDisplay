@@ -20,9 +20,23 @@ var nextButtonStyle = {
 };
 
 var OverView = React.createClass({
+  getInitialState: function() {
+    return {
+      data: {
+        
+      }
+    }
+  },
+
   componentDidMount: function() {
     $('.ui.sidebar.uncover.visible')
       .sidebar('hide');
+
+    this.overview_token = PubSub.subscribe('data', function(msg, allData) {
+      this.setState({
+        data: allData
+      });
+    });
   },
 
   render: function() {

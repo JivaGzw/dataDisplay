@@ -4,7 +4,7 @@ var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 var IndexRoute = require('react-router').IndexRoute;
 var Link = require('react-router').Link;
-var Animate = require('react-motion');
+var PubSub = require('pubsub-js');
 
 var NavList = require('./navlist.js');
 var Home = require('./home.js');
@@ -24,21 +24,28 @@ var fullScreenStyle = {
   height: '100%'
 };
 
-var initStyle = {
-  opacity: Animate.spring(1)
-}
-
 var App = React.createClass({
-  willEnter: function() {
-    return {
-      opacity: Animate.spring(0)
-    };
+  loadDataFormServer: function() {
+    $.ajax({
+      type: 'post',
+      url: '/data',
+      dataType: 'json',
+      cache: true,
+      success: function(result){
+        PubSub.publish('data', result);
+      }.bind(this),
+      error: function(xhr, status, err){
+        console.log(this.props.url, status, err);
+      }.bind(this)
+    });
   },
 
-  willLeave: function() {
-    return {
-      opacity: Animate.spring(0)
-    };
+  componentDidMount: function() {
+    this.loadDataFormServer();
+  },
+
+  componentWillUnmount: function() {
+    PubSub.unsubscribe()
   },
 
   render: function() {
