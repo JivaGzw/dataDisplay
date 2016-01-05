@@ -25,6 +25,12 @@ var fullScreenStyle = {
 };
 
 var App = React.createClass({
+  getInitialState: function() {
+    return {
+      data: {}
+    }
+  },
+
   loadDataFormServer: function() {
     $.ajax({
       type: 'post',
@@ -32,6 +38,7 @@ var App = React.createClass({
       dataType: 'json',
       cache: true,
       success: function(result){
+        this.setState({data: result});
         PubSub.publish('data', result);
       }.bind(this),
       error: function(xhr, status, err){
@@ -44,8 +51,8 @@ var App = React.createClass({
     this.loadDataFormServer();
   },
 
-  componentWillUnmount: function() {
-    PubSub.unsubscribe()
+  componentWillUpdate: function() {
+    PubSub.publish('data', this.state.data);
   },
 
   render: function() {

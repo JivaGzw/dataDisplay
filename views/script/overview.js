@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var PubSub = require('pubsub-js');
 
 var Header = require('../component/header.js');
 var NextButton = require('../component/next-button.js');
@@ -32,11 +33,11 @@ var OverView = React.createClass({
     $('.ui.sidebar.uncover.visible')
       .sidebar('hide');
 
-    this.overview_token = PubSub.subscribe('data', function(msg, allData) {
+    var overview_token = PubSub.subscribe('data', function(msg, result) {
       this.setState({
-        data: allData
+        data: result
       });
-    });
+    }.bind(this));
   },
 
   render: function() {
@@ -50,13 +51,13 @@ var OverView = React.createClass({
           <div className="ui center aligned text container">
             <div className="ui inverted two statistics">
               <div className="statistic">
-                <div className="value">31,200 </div>
+                <div className="value">not ready </div>
                 <div className="label">Total images </div>
               </div>
 
               <div className="statistic">
                 <div className="value">
-                  22
+                  {this.state.data.userCount}
                 </div>
                 <div className="label">Total Users </div>
               </div>

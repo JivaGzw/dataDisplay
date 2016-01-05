@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var PubSub = require('pubsub-js');
 
 var Header = require('../component/header.js');
 var NextButton = require('../component/next-button.js');
@@ -13,37 +14,12 @@ var chartStyle = {
 var UserScaleOne = React.createClass({
   getInitialState: function() {
     return {
-      data: {
-        a: 0,
-        b: 0,
-        c: 0,
-        d: 0,
-        e: 0,
-        f: 0
-      }
+      data: {}
     }
   },
 
-  loadDataFormServer: function() {
-    $.ajax({
-      type: 'get',
-      url: '/userScale/chart/one',
-      dataType: 'json',
-      cache: true,
-      success: function(result){
-        this.setState({data: result});
-      }.bind(this),
-      error: function(xhr, status, err){
-        console.log(this.props.url, status, err);
-      }.bind(this)
-    });
-  },
-
-  componentDidMount: function() {
-    $('.ui.sidebar.uncover.visible')
-      .sidebar('hide');
+  renderChart: function() {
     // 基于准备好的dom，初始化echarts图表
-    this.loadDataFormServer();
     var myChart = echarts.init(document.getElementById('user-scale-chart')); 
     
     var option = {
@@ -65,19 +41,32 @@ var UserScaleOne = React.createClass({
           "name":"用户数",
           "type":"bar",
           "data":[
-            this.state.data.a,
-            this.state.data.b,
-            this.state.data.c,
-            this.state.data.d,
-            this.state.data.e,
-            this.state.data.f,
-            this.state.data.g
+            this.state.data.followers_0_10,
+            this.state.data.followers_10_100,
+            this.state.data.followers_100_1000,
+            this.state.data.followers_1000_3000,
+            this.state.data.followers_3000_5000,
+            this.state.data.followers_5000_8000,
+            this.state.data.followers_8000_end
           ]
         }]
     };
 
     // 为echarts对象加载数据 
-    myChart.setOption(option); 
+    myChart.setOption(option);
+  },
+
+  componentDidMount: function() {
+    $('.ui.sidebar.uncover.visible')
+      .sidebar('hide');
+    
+    this.user_scale_one_token = PubSub.subscribe('data', function(msg, result) {
+      console.log(result);
+      this.setState({
+        data: result
+      });
+      this.renderChart();
+    }.bind(this));
   },
 
   render: function() {

@@ -30,6 +30,12 @@ webpackJsonp([0],{
 	};
 
 	var App = React.createClass({displayName: "App",
+	  getInitialState: function() {
+	    return {
+	      data: {}
+	    }
+	  },
+
 	  loadDataFormServer: function() {
 	    $.ajax({
 	      type: 'post',
@@ -37,6 +43,7 @@ webpackJsonp([0],{
 	      dataType: 'json',
 	      cache: true,
 	      success: function(result){
+	        this.setState({data: result});
 	        PubSub.publish('data', result);
 	      }.bind(this),
 	      error: function(xhr, status, err){
@@ -49,8 +56,8 @@ webpackJsonp([0],{
 	    this.loadDataFormServer();
 	  },
 
-	  componentWillUnmount: function() {
-	    PubSub.unsubscribe()
+	  componentWillUpdate: function() {
+	    PubSub.publish('data', this.state.data);
 	  },
 
 	  render: function() {
@@ -1755,6 +1762,7 @@ webpackJsonp([0],{
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(158);
+	var PubSub = __webpack_require__(208);
 
 	var Header = __webpack_require__(211);
 	var NextButton = __webpack_require__(232);
@@ -1787,11 +1795,11 @@ webpackJsonp([0],{
 	    $('.ui.sidebar.uncover.visible')
 	      .sidebar('hide');
 
-	    this.overview_token = PubSub.subscribe('data', function(msg, allData) {
+	    var overview_token = PubSub.subscribe('data', function(msg, result) {
 	      this.setState({
-	        data: allData
+	        data: result
 	      });
-	    });
+	    }.bind(this));
 	  },
 
 	  render: function() {
@@ -1805,13 +1813,13 @@ webpackJsonp([0],{
 	          React.createElement("div", {className: "ui center aligned text container"}, 
 	            React.createElement("div", {className: "ui inverted two statistics"}, 
 	              React.createElement("div", {className: "statistic"}, 
-	                React.createElement("div", {className: "value"}, "31,200 "), 
+	                React.createElement("div", {className: "value"}, "not ready "), 
 	                React.createElement("div", {className: "label"}, "Total images ")
 	              ), 
 
 	              React.createElement("div", {className: "statistic"}, 
 	                React.createElement("div", {className: "value"}, 
-	                  "22"
+	                  this.state.data.userCount
 	                ), 
 	                React.createElement("div", {className: "label"}, "Total Users ")
 	              )
@@ -2206,6 +2214,7 @@ webpackJsonp([0],{
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(158);
+	var PubSub = __webpack_require__(208);
 
 	var Header = __webpack_require__(211);
 	var NextButton = __webpack_require__(232);
@@ -2219,44 +2228,17 @@ webpackJsonp([0],{
 	var UserLocation = React.createClass({displayName: "UserLocation",
 	  getInitialState: function() {
 	    return {
-	      data: {
-	        a: 0,
-	        b: 0,
-	        c: 0,
-	        d: 0,
-	        e: 0,
-	        f: 0
-	      }
+	      data: {}
 	    }
 	  },
 
-	  loadDataFormServer: function() {
-	    $.ajax({
-	      type: 'get',
-	      url: '/userLocation',
-	      dataType: 'json',
-	      cache: true,
-	      success: function(result){
-	        this.setState({data: result});
-	      }.bind(this),
-	      error: function(xhr, status, err){
-	        console.log(this.props.url, status, err);
-	      }.bind(this)
-	    });
-	  },
-
-	  componentDidMount: function() {
-	    $('.ui.sidebar.uncover.visible')
-	      .sidebar('hide');
-
-	    // 基于准备好的dom，初始化echarts图表
-	    this.loadDataFormServer();
+	  renderChart: function() {
 	    var myChart = echarts.init(document.getElementById('chart-container')); 
-	    
+
 	    option = {
 	      title : {
-	        text: 'iphone销量',
-	        subtext: '纯属虚构',
+	        text: '用户分布',
+	        subtext: '基于50万真实用户数据',
 	        x:'center'
 	      },
 	      tooltip : {
@@ -2265,11 +2247,11 @@ webpackJsonp([0],{
 	      legend: {
 	        orient: 'vertical',
 	        x:'left',
-	        data:['iphone3']
+	        data:['用户分布']
 	      },
 	      dataRange: {
 	        min: 0,
-	        max: 2500,
+	        max: 80000,
 	        x: 'left',
 	        y: 'bottom',
 	        text:['高','低'],           // 文本，默认为数值文本
@@ -2295,7 +2277,7 @@ webpackJsonp([0],{
 	        }
 	      },
 	      series : [{
-	        name: 'iphone3',
+	        name: '用户数',
 	        type: 'map',
 	        mapType: 'china',
 	        roam: false,
@@ -2304,40 +2286,40 @@ webpackJsonp([0],{
 	          emphasis:{label:{show:true}}
 	        },
 	        data:[
-	          {name: '北京',value: Math.round(Math.random()*1000)},
-	          {name: '天津',value: Math.round(Math.random()*1000)},
-	          {name: '上海',value: Math.round(Math.random()*1000)},
-	          {name: '重庆',value: Math.round(Math.random()*1000)},
-	          {name: '河北',value: Math.round(Math.random()*1000)},
-	          {name: '河南',value: Math.round(Math.random()*1000)},
-	          {name: '云南',value: Math.round(Math.random()*1000)},
-	          {name: '辽宁',value: Math.round(Math.random()*1000)},
-	          {name: '黑龙江',value: Math.round(Math.random()*1000)},
-	          {name: '湖南',value: Math.round(Math.random()*1000)},
-	          {name: '安徽',value: Math.round(Math.random()*1000)},
-	          {name: '山东',value: Math.round(Math.random()*1000)},
-	          {name: '新疆',value: Math.round(Math.random()*1000)},
-	          {name: '江苏',value: Math.round(Math.random()*1000)},
-	          {name: '浙江',value: Math.round(Math.random()*1000)},
-	          {name: '江西',value: Math.round(Math.random()*1000)},
-	          {name: '湖北',value: Math.round(Math.random()*1000)},
-	          {name: '广西',value: Math.round(Math.random()*1000)},
-	          {name: '甘肃',value: Math.round(Math.random()*1000)},
-	          {name: '山西',value: Math.round(Math.random()*1000)},
-	          {name: '内蒙古',value: Math.round(Math.random()*1000)},
-	          {name: '陕西',value: Math.round(Math.random()*1000)},
-	          {name: '吉林',value: Math.round(Math.random()*1000)},
-	          {name: '福建',value: Math.round(Math.random()*1000)},
-	          {name: '贵州',value: Math.round(Math.random()*1000)},
-	          {name: '广东',value: Math.round(Math.random()*1000)},
-	          {name: '青海',value: Math.round(Math.random()*1000)},
-	          {name: '西藏',value: Math.round(Math.random()*1000)},
-	          {name: '四川',value: Math.round(Math.random()*1000)},
-	          {name: '宁夏',value: Math.round(Math.random()*1000)},
-	          {name: '海南',value: Math.round(Math.random()*1000)},
-	          {name: '台湾',value: Math.round(Math.random()*1000)},
-	          {name: '香港',value: Math.round(Math.random()*1000)},
-	          {name: '澳门',value: Math.round(Math.random()*1000)}
+	          {name: '北京',value: this.state.data.beijing},
+	          {name: '天津',value: this.state.data.tianjin},
+	          {name: '上海',value: this.state.data.shanghai},
+	          {name: '重庆',value: this.state.data.chongqing},
+	          {name: '河北',value: this.state.data.hebei},
+	          {name: '河南',value: this.state.data.henan},
+	          {name: '云南',value: this.state.data.yunnan},
+	          {name: '辽宁',value: this.state.data.liaoning},
+	          {name: '黑龙江',value: this.state.data.heilongjiang},
+	          {name: '湖南',value: this.state.data.hunan},
+	          {name: '安徽',value: this.state.data.anhui},
+	          {name: '山东',value: this.state.data.shandong},
+	          {name: '新疆',value: this.state.data.xinjiang},
+	          {name: '江苏',value: this.state.data.jiangsu},
+	          {name: '浙江',value: this.state.data.zhejiang},
+	          {name: '江西',value: this.state.data.jiangxi},
+	          {name: '湖北',value: this.state.data.hubei},
+	          {name: '广西',value: this.state.data.guangxi},
+	          {name: '甘肃',value: this.state.data.gansu},
+	          {name: '山西',value: this.state.data.shanxi},
+	          {name: '内蒙古',value: this.state.data.neimenggu},
+	          {name: '陕西',value: this.state.data.shanxi},
+	          {name: '吉林',value: this.state.data.jilin},
+	          {name: '福建',value: this.state.data.fujian},
+	          {name: '贵州',value: this.state.data.guizhou},
+	          {name: '广东',value: this.state.data.guangdong},
+	          {name: '青海',value: this.state.data.qinghai},
+	          {name: '西藏',value: this.state.data.xizang},
+	          {name: '四川',value: this.state.data.sichuan},
+	          {name: '宁夏',value: this.state.data.ningxia},
+	          {name: '海南',value: this.state.data.hainan},
+	          {name: '台湾',value: this.state.data.taiwan},
+	          {name: '香港',value: this.state.data.xianggang},
+	          {name: '澳门',value: this.state.data.aomen}
 	        ]
 	      }]
 	    };
@@ -2345,6 +2327,23 @@ webpackJsonp([0],{
 	    // 为echarts对象加载数据 
 	    myChart.setOption(option); 
 	  },
+
+	  componentDidMount: function() {
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
+
+	    this.user_loaction_token = PubSub.subscribe('data', function(msg, result) {
+	      console.log(result);
+	      this.setState({
+	        data: result
+	      });
+	      this.renderChart();
+	    }.bind(this));
+	  },
+
+	/*  componentWillUnmount: function() {
+	    PubSub.unsubscribe(this.user_loaction_token);
+	  },*/
 
 	  render: function() {
 	    return (
@@ -2373,6 +2372,7 @@ webpackJsonp([0],{
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(158);
+	var PubSub = __webpack_require__(208);
 
 	var Header = __webpack_require__(211);
 	var NextButton = __webpack_require__(232);
@@ -2386,37 +2386,12 @@ webpackJsonp([0],{
 	var UserScaleOne = React.createClass({displayName: "UserScaleOne",
 	  getInitialState: function() {
 	    return {
-	      data: {
-	        a: 0,
-	        b: 0,
-	        c: 0,
-	        d: 0,
-	        e: 0,
-	        f: 0
-	      }
+	      data: {}
 	    }
 	  },
 
-	  loadDataFormServer: function() {
-	    $.ajax({
-	      type: 'get',
-	      url: '/userScale/chart/one',
-	      dataType: 'json',
-	      cache: true,
-	      success: function(result){
-	        this.setState({data: result});
-	      }.bind(this),
-	      error: function(xhr, status, err){
-	        console.log(this.props.url, status, err);
-	      }.bind(this)
-	    });
-	  },
-
-	  componentDidMount: function() {
-	    $('.ui.sidebar.uncover.visible')
-	      .sidebar('hide');
+	  renderChart: function() {
 	    // 基于准备好的dom，初始化echarts图表
-	    this.loadDataFormServer();
 	    var myChart = echarts.init(document.getElementById('user-scale-chart')); 
 	    
 	    var option = {
@@ -2438,19 +2413,32 @@ webpackJsonp([0],{
 	          "name":"用户数",
 	          "type":"bar",
 	          "data":[
-	            this.state.data.a,
-	            this.state.data.b,
-	            this.state.data.c,
-	            this.state.data.d,
-	            this.state.data.e,
-	            this.state.data.f,
-	            this.state.data.g
+	            this.state.data.followers_0_10,
+	            this.state.data.followers_10_100,
+	            this.state.data.followers_100_1000,
+	            this.state.data.followers_1000_3000,
+	            this.state.data.followers_3000_5000,
+	            this.state.data.followers_5000_8000,
+	            this.state.data.followers_8000_end
 	          ]
 	        }]
 	    };
 
 	    // 为echarts对象加载数据 
-	    myChart.setOption(option); 
+	    myChart.setOption(option);
+	  },
+
+	  componentDidMount: function() {
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
+	    
+	    this.user_scale_one_token = PubSub.subscribe('data', function(msg, result) {
+	      console.log(result);
+	      this.setState({
+	        data: result
+	      });
+	      this.renderChart();
+	    }.bind(this));
 	  },
 
 	  render: function() {
@@ -2480,6 +2468,7 @@ webpackJsonp([0],{
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(158);
+	var PubSub = __webpack_require__(208);
 
 	var Header = __webpack_require__(211);
 	var NextButton = __webpack_require__(232);
@@ -2494,36 +2483,12 @@ webpackJsonp([0],{
 	  getInitialState: function() {
 	    return {
 	      data: {
-	        a: 0,
-	        b: 0,
-	        c: 0,
-	        d: 0,
-	        e: 0,
-	        f: 0
 	      }
 	    }
 	  },
 
-	  loadDataFormServer: function() {
-	    $.ajax({
-	      type: 'get',
-	      url: '/userScale/chart/two',
-	      dataType: 'json',
-	      cache: true,
-	      success: function(result){
-	        this.setState({data: result});
-	      }.bind(this),
-	      error: function(xhr, status, err){
-	        console.log(this.props.url, status, err);
-	      }.bind(this)
-	    });
-	  },
-
-	  componentDidMount: function() {
-	    $('.ui.sidebar.uncover.visible')
-	      .sidebar('hide');
+	  renderChart: function() {
 	    // 基于准备好的dom，初始化echarts图表
-	    this.loadDataFormServer();
 	    var myChart = echarts.init(document.getElementById('chart-container')); 
 	    
 	    var dataStyle = {
@@ -2544,16 +2509,16 @@ webpackJsonp([0],{
 	    };
 	    option = {
 	      title: {
-	        text: '你幸福吗？',
-	        subtext: 'From ExcelHome',
-	        sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
+	        text: '多少活跃用户？',
+	        subtext: 'Tuchong.com',
+	        sublink: 'http://tuchong.com',
 	        x: 'center',
 	        y: 'center',
 	        itemGap: 20,
 	        textStyle : {
 	          color : 'rgba(30,144,255,0.8)',
 	          fontFamily : '微软雅黑',
-	          fontSize : 35,
+	          fontSize : 24,
 	          fontWeight : 'bolder'
 	        }
 	      },
@@ -2566,7 +2531,7 @@ webpackJsonp([0],{
 	        x : document.getElementById('chart-container').offsetWidth / 2 + 10,
 	        y : 55,
 	        itemGap:12,
-	        data:['68%的人表示过的不错','29%的人表示生活压力很大','3%的人表示“我姓曾”']
+	        data:['僵尸用户','普通用户','活跃用户']
 	      },
 	      toolbox: {
 	        show : true,
@@ -2584,11 +2549,11 @@ webpackJsonp([0],{
 	        radius : [125, 150],
 	        itemStyle : dataStyle,
 	        data:[{
-	          value:68,
-	          name:'68%的人表示过的不错'
+	          value:this.state.data.followers_0_10,
+	          name:'僵尸用户'
 	        },
 	        {
-	          value:32,
+	          value: 100000/*parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000) + parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end)*/,
 	          name:'invisible',
 	          itemStyle : placeHolderStyle
 	        }]
@@ -2600,11 +2565,11 @@ webpackJsonp([0],{
 	        radius : [100, 125],
 	        itemStyle : dataStyle,
 	        data:[{
-	          value:29, 
-	          name:'29%的人表示生活压力很大'
+	          value: parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000), 
+	          name:'普通用户'
 	        },
 	        {
-	          value:71,
+	          value: 400000/*parseInt(this.state.data.followers_0_10) + parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end)*/,
 	          name:'invisible',
 	          itemStyle : placeHolderStyle
 	        }]
@@ -2616,20 +2581,31 @@ webpackJsonp([0],{
 	        radius : [75, 100],
 	        itemStyle : dataStyle,
 	        data:[{
-	          value:3, 
-	          name:'3%的人表示“我姓曾”'
+	          value: parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end), 
+	          name:'活跃用户'
 	        },
 	        {
-	          value:97,
+	          value:400000/*parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000)*/,
 	          name:'invisible',
 	          itemStyle : placeHolderStyle
 	        }]
-	      }]
+	      }] 
 	    };
-	                        
-
 	    // 为echarts对象加载数据 
-	    myChart.setOption(option); 
+	    myChart.setOption(option);
+	  },
+
+	  componentDidMount: function() {
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
+	                       
+	    this.user_scale_two_token = PubSub.subscribe('data', function(msg, result) {
+	      console.log(result);
+	      this.setState({
+	        data: result
+	      });
+	      this.renderChart();
+	    }.bind(this));
 	  },
 
 	  render: function() {

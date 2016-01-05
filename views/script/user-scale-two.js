@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var PubSub = require('pubsub-js');
 
 var Header = require('../component/header.js');
 var NextButton = require('../component/next-button.js');
@@ -14,36 +15,12 @@ var UserScaleTwo = React.createClass({
   getInitialState: function() {
     return {
       data: {
-        a: 0,
-        b: 0,
-        c: 0,
-        d: 0,
-        e: 0,
-        f: 0
       }
     }
   },
 
-  loadDataFormServer: function() {
-    $.ajax({
-      type: 'get',
-      url: '/userScale/chart/two',
-      dataType: 'json',
-      cache: true,
-      success: function(result){
-        this.setState({data: result});
-      }.bind(this),
-      error: function(xhr, status, err){
-        console.log(this.props.url, status, err);
-      }.bind(this)
-    });
-  },
-
-  componentDidMount: function() {
-    $('.ui.sidebar.uncover.visible')
-      .sidebar('hide');
+  renderChart: function() {
     // 基于准备好的dom，初始化echarts图表
-    this.loadDataFormServer();
     var myChart = echarts.init(document.getElementById('chart-container')); 
     
     var dataStyle = {
@@ -64,16 +41,16 @@ var UserScaleTwo = React.createClass({
     };
     option = {
       title: {
-        text: '你幸福吗？',
-        subtext: 'From ExcelHome',
-        sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
+        text: '多少活跃用户？',
+        subtext: 'Tuchong.com',
+        sublink: 'http://tuchong.com',
         x: 'center',
         y: 'center',
         itemGap: 20,
         textStyle : {
           color : 'rgba(30,144,255,0.8)',
           fontFamily : '微软雅黑',
-          fontSize : 35,
+          fontSize : 24,
           fontWeight : 'bolder'
         }
       },
@@ -86,7 +63,7 @@ var UserScaleTwo = React.createClass({
         x : document.getElementById('chart-container').offsetWidth / 2 + 10,
         y : 55,
         itemGap:12,
-        data:['68%的人表示过的不错','29%的人表示生活压力很大','3%的人表示“我姓曾”']
+        data:['僵尸用户','普通用户','活跃用户']
       },
       toolbox: {
         show : true,
@@ -104,11 +81,11 @@ var UserScaleTwo = React.createClass({
         radius : [125, 150],
         itemStyle : dataStyle,
         data:[{
-          value:68,
-          name:'68%的人表示过的不错'
+          value:this.state.data.followers_0_10,
+          name:'僵尸用户'
         },
         {
-          value:32,
+          value: 100000/*parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000) + parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end)*/,
           name:'invisible',
           itemStyle : placeHolderStyle
         }]
@@ -120,11 +97,11 @@ var UserScaleTwo = React.createClass({
         radius : [100, 125],
         itemStyle : dataStyle,
         data:[{
-          value:29, 
-          name:'29%的人表示生活压力很大'
+          value: parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000), 
+          name:'普通用户'
         },
         {
-          value:71,
+          value: 400000/*parseInt(this.state.data.followers_0_10) + parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end)*/,
           name:'invisible',
           itemStyle : placeHolderStyle
         }]
@@ -136,20 +113,31 @@ var UserScaleTwo = React.createClass({
         radius : [75, 100],
         itemStyle : dataStyle,
         data:[{
-          value:3, 
-          name:'3%的人表示“我姓曾”'
+          value: parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end), 
+          name:'活跃用户'
         },
         {
-          value:97,
+          value:400000/*parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000)*/,
           name:'invisible',
           itemStyle : placeHolderStyle
         }]
-      }]
+      }] 
     };
-                        
-
     // 为echarts对象加载数据 
-    myChart.setOption(option); 
+    myChart.setOption(option);
+  },
+
+  componentDidMount: function() {
+    $('.ui.sidebar.uncover.visible')
+      .sidebar('hide');
+                       
+    this.user_scale_two_token = PubSub.subscribe('data', function(msg, result) {
+      console.log(result);
+      this.setState({
+        data: result
+      });
+      this.renderChart();
+    }.bind(this));
   },
 
   render: function() {

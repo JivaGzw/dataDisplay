@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var PubSub = require('pubsub-js');
 
 var Header = require('../component/header.js');
 var NextButton = require('../component/next-button.js');
@@ -13,44 +14,17 @@ var chartStyle = {
 var UserLocation = React.createClass({
   getInitialState: function() {
     return {
-      data: {
-        a: 0,
-        b: 0,
-        c: 0,
-        d: 0,
-        e: 0,
-        f: 0
-      }
+      data: {}
     }
   },
 
-  loadDataFormServer: function() {
-    $.ajax({
-      type: 'get',
-      url: '/userLocation',
-      dataType: 'json',
-      cache: true,
-      success: function(result){
-        this.setState({data: result});
-      }.bind(this),
-      error: function(xhr, status, err){
-        console.log(this.props.url, status, err);
-      }.bind(this)
-    });
-  },
-
-  componentDidMount: function() {
-    $('.ui.sidebar.uncover.visible')
-      .sidebar('hide');
-
-    // 基于准备好的dom，初始化echarts图表
-    this.loadDataFormServer();
+  renderChart: function() {
     var myChart = echarts.init(document.getElementById('chart-container')); 
-    
+
     option = {
       title : {
-        text: 'iphone销量',
-        subtext: '纯属虚构',
+        text: '用户分布',
+        subtext: '基于50万真实用户数据',
         x:'center'
       },
       tooltip : {
@@ -59,11 +33,11 @@ var UserLocation = React.createClass({
       legend: {
         orient: 'vertical',
         x:'left',
-        data:['iphone3']
+        data:['用户分布']
       },
       dataRange: {
         min: 0,
-        max: 2500,
+        max: 80000,
         x: 'left',
         y: 'bottom',
         text:['高','低'],           // 文本，默认为数值文本
@@ -89,7 +63,7 @@ var UserLocation = React.createClass({
         }
       },
       series : [{
-        name: 'iphone3',
+        name: '用户数',
         type: 'map',
         mapType: 'china',
         roam: false,
@@ -98,40 +72,40 @@ var UserLocation = React.createClass({
           emphasis:{label:{show:true}}
         },
         data:[
-          {name: '北京',value: Math.round(Math.random()*1000)},
-          {name: '天津',value: Math.round(Math.random()*1000)},
-          {name: '上海',value: Math.round(Math.random()*1000)},
-          {name: '重庆',value: Math.round(Math.random()*1000)},
-          {name: '河北',value: Math.round(Math.random()*1000)},
-          {name: '河南',value: Math.round(Math.random()*1000)},
-          {name: '云南',value: Math.round(Math.random()*1000)},
-          {name: '辽宁',value: Math.round(Math.random()*1000)},
-          {name: '黑龙江',value: Math.round(Math.random()*1000)},
-          {name: '湖南',value: Math.round(Math.random()*1000)},
-          {name: '安徽',value: Math.round(Math.random()*1000)},
-          {name: '山东',value: Math.round(Math.random()*1000)},
-          {name: '新疆',value: Math.round(Math.random()*1000)},
-          {name: '江苏',value: Math.round(Math.random()*1000)},
-          {name: '浙江',value: Math.round(Math.random()*1000)},
-          {name: '江西',value: Math.round(Math.random()*1000)},
-          {name: '湖北',value: Math.round(Math.random()*1000)},
-          {name: '广西',value: Math.round(Math.random()*1000)},
-          {name: '甘肃',value: Math.round(Math.random()*1000)},
-          {name: '山西',value: Math.round(Math.random()*1000)},
-          {name: '内蒙古',value: Math.round(Math.random()*1000)},
-          {name: '陕西',value: Math.round(Math.random()*1000)},
-          {name: '吉林',value: Math.round(Math.random()*1000)},
-          {name: '福建',value: Math.round(Math.random()*1000)},
-          {name: '贵州',value: Math.round(Math.random()*1000)},
-          {name: '广东',value: Math.round(Math.random()*1000)},
-          {name: '青海',value: Math.round(Math.random()*1000)},
-          {name: '西藏',value: Math.round(Math.random()*1000)},
-          {name: '四川',value: Math.round(Math.random()*1000)},
-          {name: '宁夏',value: Math.round(Math.random()*1000)},
-          {name: '海南',value: Math.round(Math.random()*1000)},
-          {name: '台湾',value: Math.round(Math.random()*1000)},
-          {name: '香港',value: Math.round(Math.random()*1000)},
-          {name: '澳门',value: Math.round(Math.random()*1000)}
+          {name: '北京',value: this.state.data.beijing},
+          {name: '天津',value: this.state.data.tianjin},
+          {name: '上海',value: this.state.data.shanghai},
+          {name: '重庆',value: this.state.data.chongqing},
+          {name: '河北',value: this.state.data.hebei},
+          {name: '河南',value: this.state.data.henan},
+          {name: '云南',value: this.state.data.yunnan},
+          {name: '辽宁',value: this.state.data.liaoning},
+          {name: '黑龙江',value: this.state.data.heilongjiang},
+          {name: '湖南',value: this.state.data.hunan},
+          {name: '安徽',value: this.state.data.anhui},
+          {name: '山东',value: this.state.data.shandong},
+          {name: '新疆',value: this.state.data.xinjiang},
+          {name: '江苏',value: this.state.data.jiangsu},
+          {name: '浙江',value: this.state.data.zhejiang},
+          {name: '江西',value: this.state.data.jiangxi},
+          {name: '湖北',value: this.state.data.hubei},
+          {name: '广西',value: this.state.data.guangxi},
+          {name: '甘肃',value: this.state.data.gansu},
+          {name: '山西',value: this.state.data.shanxi},
+          {name: '内蒙古',value: this.state.data.neimenggu},
+          {name: '陕西',value: this.state.data.shanxi},
+          {name: '吉林',value: this.state.data.jilin},
+          {name: '福建',value: this.state.data.fujian},
+          {name: '贵州',value: this.state.data.guizhou},
+          {name: '广东',value: this.state.data.guangdong},
+          {name: '青海',value: this.state.data.qinghai},
+          {name: '西藏',value: this.state.data.xizang},
+          {name: '四川',value: this.state.data.sichuan},
+          {name: '宁夏',value: this.state.data.ningxia},
+          {name: '海南',value: this.state.data.hainan},
+          {name: '台湾',value: this.state.data.taiwan},
+          {name: '香港',value: this.state.data.xianggang},
+          {name: '澳门',value: this.state.data.aomen}
         ]
       }]
     };
@@ -139,6 +113,23 @@ var UserLocation = React.createClass({
     // 为echarts对象加载数据 
     myChart.setOption(option); 
   },
+
+  componentDidMount: function() {
+    $('.ui.sidebar.uncover.visible')
+      .sidebar('hide');
+
+    this.user_loaction_token = PubSub.subscribe('data', function(msg, result) {
+      console.log(result);
+      this.setState({
+        data: result
+      });
+      this.renderChart();
+    }.bind(this));
+  },
+
+/*  componentWillUnmount: function() {
+    PubSub.unsubscribe(this.user_loaction_token);
+  },*/
 
   render: function() {
     return (
