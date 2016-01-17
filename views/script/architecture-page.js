@@ -18,7 +18,7 @@ var ArchitecturePage = React.createClass({
         <div className="ui one colum centered grid">
 
           <div className="ui centered row">
-            <NextButton url="/about"></NextButton>
+            <img class="ui image" src="/images/architecture.png" />
           </div>
         </div>
       </EnterAnimate>

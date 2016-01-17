@@ -1,8 +1,8 @@
 var React = require('react');
 
 var headerContainerStyle = {
-  margin: '1.8em',
-  fontSize: '2em'
+  margin: '1.8em 1.8em 40px 1.8em',
+  fontSize: '1.6em'
 };
 
 var Header = React.createClass({
@@ -10,9 +10,9 @@ var Header = React.createClass({
     return (
       <div>
         <div className="ui container" style={headerContainerStyle}>
-          <h1 className="ui center aligned dividing huge header" >
+          <h3 className="ui center aligned dividing huge header" >
             {this.props.children}
-          </h1>
+          </h3>
         </div>
       </div>
     );

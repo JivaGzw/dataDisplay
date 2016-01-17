@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var PubSub = require('pubsub-js');
 
 var Header = require('../component/header.js');
 var NextButton = require('../component/next-button.js');
@@ -13,43 +14,17 @@ var chartStyle = {
 var DigitalCamera = React.createClass({
   getInitialState: function() {
     return {
-      data: {
-        a: 0,
-        b: 0,
-        c: 0,
-        d: 0,
-        e: 0,
-        f: 0
-      }
+      data: {}
     }
   },
 
-  loadDataFormServer: function() {
-    $.ajax({
-      type: 'get',
-      url: '/digitalCamera',
-      dataType: 'json',
-      cache: true,
-      success: function(result){
-        this.setState({data: result});
-      }.bind(this),
-      error: function(xhr, status, err){
-        console.log(this.props.url, status, err);
-      }.bind(this)
-    });
-  },
-
-  componentDidMount: function() {
-    $('.ui.sidebar.uncover.visible')
-      .sidebar('hide');
+  renderChart: function() {
     // 基于准备好的dom，初始化echarts图表
-    this.loadDataFormServer();
-    var myChart = echarts.init(document.getElementById('chart-container')); 
-    
+    var myChart = echarts.init(document.getElementById('camera-chart-container')); 
     option = {
       title : {
-        text: '南丁格尔玫瑰图',
-        subtext: '纯属虚构',
+        text: '使用最多的相机Top10',
+        subtext: '基于图虫真实数据',
         x:'center'
       },
       tooltip : {
@@ -59,7 +34,18 @@ var DigitalCamera = React.createClass({
       legend: {
         x : 'center',
         y : 'bottom',
-        data:['rose1','rose2','rose3','rose4','rose5','rose6','rose7','rose8']
+        data:[
+          this.state.data.camera[0].type,
+          this.state.data.camera[1].type,
+          this.state.data.camera[2].type,
+          this.state.data.camera[3].type,
+          this.state.data.camera[4].type,
+          this.state.data.camera[5].type,
+          this.state.data.camera[6].type,
+          this.state.data.camera[7].type,
+          this.state.data.camera[8].type,
+          this.state.data.camera[9].type
+        ]
       },
       toolbox: {
         show : true,
@@ -76,7 +62,7 @@ var DigitalCamera = React.createClass({
       },
       calculable : true,
       series : [{
-        name:'面积模式',
+        name:'照片数量',
         type:'pie',
         radius : [30, 110],
         center : ['50%', 200],
@@ -85,28 +71,42 @@ var DigitalCamera = React.createClass({
         max: 40,                // for funnel
         sort : 'ascending',     // for funnel
         data:[
-          {value:10, name:'rose1'},
-          {value:5, name:'rose2'},
-          {value:15, name:'rose3'},
-          {value:25, name:'rose4'},
-          {value:20, name:'rose5'},
-          {value:35, name:'rose6'},
-          {value:30, name:'rose7'},
-          {value:40, name:'rose8'}
+          {value:this.state.data.camera[0].totalImage, name:this.state.data.camera[0].type},
+          {value:this.state.data.camera[1].totalImage, name:this.state.data.camera[1].type},
+          {value:this.state.data.camera[2].totalImage, name:this.state.data.camera[2].type},
+          {value:this.state.data.camera[3].totalImage, name:this.state.data.camera[3].type},
+          {value:this.state.data.camera[4].totalImage, name:this.state.data.camera[4].type},
+          {value:this.state.data.camera[5].totalImage, name:this.state.data.camera[5].type},
+          {value:this.state.data.camera[6].totalImage, name:this.state.data.camera[6].type},
+          {value:this.state.data.camera[7].totalImage, name:this.state.data.camera[7].type},
+          {value:this.state.data.camera[8].totalImage, name:this.state.data.camera[8].type},
+          {value:this.state.data.camera[9].totalImage, name:this.state.data.camera[9].type}
         ]
       }]
     };
     // 为echarts对象加载数据 
-    myChart.setOption(option); 
+    myChart.setOption(option);
+  },
+
+  componentDidMount: function() {
+    $('.ui.sidebar.uncover.visible')
+      .sidebar('hide');
+
+    this.digital_camrea_token = PubSub.subscribe('data', function(msg, result) {
+      this.setState({
+        data: result
+      });
+      this.renderChart();
+    }.bind(this));
   },
 
   render: function() {
     return (
       <EnterAnimate>
-        <Header>DigitalCamera</Header>
+        <Header>图虫中使用最多的相机Top 10</Header>
         <div className="ui one colum centered grid">
           <div className="colum">
-            <div id="chart-container" style={chartStyle}></div>
+            <div id="camera-chart-container" style={chartStyle}></div>
           </div>
           <div className="ui centered row">
             <NextButton url="/tuchong/lens"></NextButton>

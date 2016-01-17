@@ -140,68 +140,84 @@ webpackJsonp([0],{
 	        ), 
 
 	        React.createElement(Link, {to: "/", className: "item"}, 
-	          React.createElement("b", null, "Home")
+	          React.createElement("b", null, "主页")
 	        ), 
 	        React.createElement("div", {className: "item"}, 
 	          React.createElement("div", {className: "header"}, 
-	            "Summarize"
+	            "总结"
 	          ), 
 	          React.createElement("div", {className: "menu"}, 
 	            React.createElement(Link, {to: "tuchong/overview", className: "item"}, 
-	              "OverView"
+	              "总览"
 	            ), 
 	            React.createElement(Link, {to: "tuchong/digitalcamera", className: "item"}, 
-	              "1. Digital Camera"
+	              "1. 相机Top 10"
 	            ), 
 	            React.createElement(Link, {to: "tuchong/lens", className: "item"}, 
-	              "2. Camera Lens"
+	              "2. 镜头Top 20"
 	            ), 
 	            React.createElement(Link, {to: "tuchong/userscale/chart/1", className: "item"}, 
-	              "3. User Scale Chart 1"
+	              "3. 用户分析 1"
 	            ), 
 	            React.createElement(Link, {to: "tuchong/userscale/chart/2", className: "item"}, 
-	              "4. User Scale Chart 2"
+	              "4. 用户分析 2"
 	            ), 
 	            React.createElement(Link, {to: "tuchong/userlocation", className: "item"}, 
-	              "5. User Location"
+	              "5. 用户分布"
 	            ), 
 	            React.createElement(Link, {to: "other", className: "item"}, 
-	              "6. Other"
+	              "6. 关于Jiva"
 	            )
 	          )
 	        ), 
 	        React.createElement(Link, {to: "architecture", className: "item"}, 
-	          React.createElement("b", null, "Architecture")
-	        ), 
-	        React.createElement(Link, {to: "about", className: "item"}, 
-	          React.createElement("b", null, "About")
+	          React.createElement("b", null, "网站架构")
 	        ), 
 	        
 	        React.createElement("div", {className: "item"}, 
 	          React.createElement("h5", {className: "ui grey horizontal divider inverted header"}, 
-	            "Technical Assistance"
+	            "技术支持"
 	          ), 
 	          React.createElement("div", {className: "menu"}, 
 	            React.createElement("div", {className: "item"}, 
-	              "React.js"
+	              React.createElement("a", {href: "http://facebook.github.io/react/"}, 
+	                "React.js"
+	              )
 	            ), 
 	            React.createElement("div", {className: "item"}, 
-	              "Node.js"
+	              React.createElement("a", {href: "https://nodejs.org/en/"}, 
+	                "Node.js"
+	              )
 	            ), 
 	            React.createElement("div", {className: "item"}, 
-	              "Express.js"
+	              React.createElement("a", {href: "http://expressjs.com/"}, 
+	                "Express.js"
+	              )
 	            ), 
 	            React.createElement("div", {className: "item"}, 
-	              "SemanticUI"
+	              React.createElement("a", {href: "http://www.semantic-ui.cn/"}, 
+	                "SemanticUI"
+	              )
 	            ), 
 	            React.createElement("div", {className: "item"}, 
-	              "ECharts"
+	              React.createElement("a", {href: "http://echarts.baidu.com/"}, 
+	                "Echarts"
+	              )
 	            ), 
 	            React.createElement("div", {className: "item"}, 
-	              "Mongodb"
+	              React.createElement("a", {href: "http://webpack.github.io/"}, 
+	                "Webpack"
+	              )
 	            ), 
 	            React.createElement("div", {className: "item"}, 
-	              "Redis"
+	              React.createElement("a", {href: "https://www.mongodb.org/"}, 
+	                "mongodb"
+	              )
+	            ), 
+	            React.createElement("div", {className: "item"}, 
+	              React.createElement("a", {href: "http://redis.io/"}, 
+	                "redis"
+	              )
 	            )
 	          )
 	          
@@ -233,7 +249,7 @@ webpackJsonp([0],{
 	var EnterAnimate = __webpack_require__(212);
 
 	var mainContainerStyle = {
-	  marginTop: '5%'
+	  marginTop: '2%'
 	};
 
 	var imgContainerStyle = {
@@ -253,7 +269,7 @@ webpackJsonp([0],{
 	  render: function() {
 	    return (
 	      React.createElement(EnterAnimate, null, 
-	        React.createElement(Header, null, "A Summarize Of tuchong.com"), 
+	        React.createElement(Header, null, "图虫的2015"), 
 	        
 	        React.createElement("div", {className: "ui inverted vertical masthead center aligned segment", style: mainContainerStyle}, 
 	          React.createElement("div", {className: "ui center aligned container", style: imgContainerStyle}, 
@@ -288,8 +304,8 @@ webpackJsonp([0],{
 	var React = __webpack_require__(2);
 
 	var headerContainerStyle = {
-	  margin: '1.8em',
-	  fontSize: '2em'
+	  margin: '1.8em 1.8em 40px 1.8em',
+	  fontSize: '1.6em'
 	};
 
 	var Header = React.createClass({displayName: "Header",
@@ -297,7 +313,7 @@ webpackJsonp([0],{
 	    return (
 	      React.createElement("div", null, 
 	        React.createElement("div", {className: "ui container", style: headerContainerStyle}, 
-	          React.createElement("h1", {className: "ui center aligned dividing huge header"}, 
+	          React.createElement("h3", {className: "ui center aligned dividing huge header"}, 
 	            this.props.children
 	          )
 	        )
@@ -1769,7 +1785,7 @@ webpackJsonp([0],{
 	var EnterAnimate = __webpack_require__(212);
 
 	var mainContainerStyle = {
-	  marginTop: '5%',
+	  marginTop: '2%',
 	  paddingTop: '50',
 	  paddingBottom: '50'
 	};
@@ -1785,9 +1801,7 @@ webpackJsonp([0],{
 	var OverView = React.createClass({displayName: "OverView",
 	  getInitialState: function() {
 	    return {
-	      data: {
-	        
-	      }
+	      data: {}
 	    }
 	  },
 
@@ -1806,22 +1820,24 @@ webpackJsonp([0],{
 	    return (
 	      React.createElement(EnterAnimate, null, 
 	        React.createElement("div", null, 
-	          React.createElement(Header, null, "OverView")
+	          React.createElement(Header, null, "总览")
 	        ), 
 	        React.createElement("div", {className: "ui inverted vertical masthead center aligned segment", style: mainContainerStyle}, 
 	          
 	          React.createElement("div", {className: "ui center aligned text container"}, 
 	            React.createElement("div", {className: "ui inverted two statistics"}, 
 	              React.createElement("div", {className: "statistic"}, 
-	                React.createElement("div", {className: "value"}, "not ready "), 
-	                React.createElement("div", {className: "label"}, "Total images ")
+	                React.createElement("div", {className: "value"}, 
+	                  this.state.data.totalImage
+	                ), 
+	                React.createElement("div", {className: "label"}, "总图片数 ")
 	              ), 
 
 	              React.createElement("div", {className: "statistic"}, 
 	                React.createElement("div", {className: "value"}, 
 	                  this.state.data.userCount
 	                ), 
-	                React.createElement("div", {className: "label"}, "Total Users ")
+	                React.createElement("div", {className: "label"}, "总用户数 ")
 	              )
 	            ), 
 	            React.createElement(NextButton, {url: "/tuchong/digitalcamera", style: nextButtonStyle})
@@ -1868,6 +1884,7 @@ webpackJsonp([0],{
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(158);
+	var PubSub = __webpack_require__(208);
 
 	var Header = __webpack_require__(211);
 	var NextButton = __webpack_require__(232);
@@ -1881,43 +1898,17 @@ webpackJsonp([0],{
 	var DigitalCamera = React.createClass({displayName: "DigitalCamera",
 	  getInitialState: function() {
 	    return {
-	      data: {
-	        a: 0,
-	        b: 0,
-	        c: 0,
-	        d: 0,
-	        e: 0,
-	        f: 0
-	      }
+	      data: {}
 	    }
 	  },
 
-	  loadDataFormServer: function() {
-	    $.ajax({
-	      type: 'get',
-	      url: '/digitalCamera',
-	      dataType: 'json',
-	      cache: true,
-	      success: function(result){
-	        this.setState({data: result});
-	      }.bind(this),
-	      error: function(xhr, status, err){
-	        console.log(this.props.url, status, err);
-	      }.bind(this)
-	    });
-	  },
-
-	  componentDidMount: function() {
-	    $('.ui.sidebar.uncover.visible')
-	      .sidebar('hide');
+	  renderChart: function() {
 	    // 基于准备好的dom，初始化echarts图表
-	    this.loadDataFormServer();
-	    var myChart = echarts.init(document.getElementById('chart-container')); 
-	    
+	    var myChart = echarts.init(document.getElementById('camera-chart-container')); 
 	    option = {
 	      title : {
-	        text: '南丁格尔玫瑰图',
-	        subtext: '纯属虚构',
+	        text: '使用最多的相机Top10',
+	        subtext: '基于图虫真实数据',
 	        x:'center'
 	      },
 	      tooltip : {
@@ -1927,7 +1918,18 @@ webpackJsonp([0],{
 	      legend: {
 	        x : 'center',
 	        y : 'bottom',
-	        data:['rose1','rose2','rose3','rose4','rose5','rose6','rose7','rose8']
+	        data:[
+	          this.state.data.camera[0].type,
+	          this.state.data.camera[1].type,
+	          this.state.data.camera[2].type,
+	          this.state.data.camera[3].type,
+	          this.state.data.camera[4].type,
+	          this.state.data.camera[5].type,
+	          this.state.data.camera[6].type,
+	          this.state.data.camera[7].type,
+	          this.state.data.camera[8].type,
+	          this.state.data.camera[9].type
+	        ]
 	      },
 	      toolbox: {
 	        show : true,
@@ -1944,7 +1946,7 @@ webpackJsonp([0],{
 	      },
 	      calculable : true,
 	      series : [{
-	        name:'面积模式',
+	        name:'照片数量',
 	        type:'pie',
 	        radius : [30, 110],
 	        center : ['50%', 200],
@@ -1953,28 +1955,42 @@ webpackJsonp([0],{
 	        max: 40,                // for funnel
 	        sort : 'ascending',     // for funnel
 	        data:[
-	          {value:10, name:'rose1'},
-	          {value:5, name:'rose2'},
-	          {value:15, name:'rose3'},
-	          {value:25, name:'rose4'},
-	          {value:20, name:'rose5'},
-	          {value:35, name:'rose6'},
-	          {value:30, name:'rose7'},
-	          {value:40, name:'rose8'}
+	          {value:this.state.data.camera[0].totalImage, name:this.state.data.camera[0].type},
+	          {value:this.state.data.camera[1].totalImage, name:this.state.data.camera[1].type},
+	          {value:this.state.data.camera[2].totalImage, name:this.state.data.camera[2].type},
+	          {value:this.state.data.camera[3].totalImage, name:this.state.data.camera[3].type},
+	          {value:this.state.data.camera[4].totalImage, name:this.state.data.camera[4].type},
+	          {value:this.state.data.camera[5].totalImage, name:this.state.data.camera[5].type},
+	          {value:this.state.data.camera[6].totalImage, name:this.state.data.camera[6].type},
+	          {value:this.state.data.camera[7].totalImage, name:this.state.data.camera[7].type},
+	          {value:this.state.data.camera[8].totalImage, name:this.state.data.camera[8].type},
+	          {value:this.state.data.camera[9].totalImage, name:this.state.data.camera[9].type}
 	        ]
 	      }]
 	    };
 	    // 为echarts对象加载数据 
-	    myChart.setOption(option); 
+	    myChart.setOption(option);
+	  },
+
+	  componentDidMount: function() {
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
+
+	    this.digital_camrea_token = PubSub.subscribe('data', function(msg, result) {
+	      this.setState({
+	        data: result
+	      });
+	      this.renderChart();
+	    }.bind(this));
 	  },
 
 	  render: function() {
 	    return (
 	      React.createElement(EnterAnimate, null, 
-	        React.createElement(Header, null, "DigitalCamera"), 
+	        React.createElement(Header, null, "图虫中使用最多的相机Top 10"), 
 	        React.createElement("div", {className: "ui one colum centered grid"}, 
 	          React.createElement("div", {className: "colum"}, 
-	            React.createElement("div", {id: "chart-container", style: chartStyle})
+	            React.createElement("div", {id: "camera-chart-container", style: chartStyle})
 	          ), 
 	          React.createElement("div", {className: "ui centered row"}, 
 	            React.createElement(NextButton, {url: "/tuchong/lens"})
@@ -1995,43 +2011,22 @@ webpackJsonp([0],{
 
 	/* WEBPACK VAR INJECTION */(function($) {var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(158);
+	var PubSub = __webpack_require__(208);
 
 	var Header = __webpack_require__(211);
 	var NextButton = __webpack_require__(232);
 	var EnterAnimate = __webpack_require__(212);
 
 	var chartStyle = {
-	  width: '800',
+	  width: '1200',
 	  height: '400'
 	};
 
 	var Lens = React.createClass({displayName: "Lens",
 	  getInitialState: function() {
 	    return {
-	      data: {
-	        a: 0,
-	        b: 0,
-	        c: 0,
-	        d: 0,
-	        e: 0,
-	        f: 0
-	      }
+	      data: {}
 	    }
-	  },
-
-	  loadDataFormServer: function() {
-	    $.ajax({
-	      type: 'get',
-	      url: '/lens',
-	      dataType: 'json',
-	      cache: true,
-	      success: function(result){
-	        this.setState({data: result});
-	      }.bind(this),
-	      error: function(xhr, status, err){
-	        console.log(this.props.url, status, err);
-	      }.bind(this)
-	    });
 	  },
 
 	  renderChart: function() {
@@ -2039,9 +2034,7 @@ webpackJsonp([0],{
 	    $('.ui.sidebar.uncover.visible')
 	      .sidebar('hide');
 
-	    this.loadDataFormServer();
-	    var myChart = echarts.init(document.getElementById('chart-container')); 
-	    
+	    var myChart = echarts.init(document.getElementById('lens-chart-container')); 
 	    
 	    function createRandomItemStyle() {
 	      return {
@@ -2056,11 +2049,16 @@ webpackJsonp([0],{
 	    }
 
 	    var option = {
+	        title : {
+	          text: '使用最多的镜头Top20',
+	          subtext: '基于图虫真实数据',
+	          x:'center'
+	        },
 	        tooltip: {
 	          show: true
 	        },
 	        series: [{
-	          name: 'Picture num of lens',
+	          name: '该镜头所拍摄的照片数量',
 	          type: 'wordCloud',
 	          size: ['80%', '80%'],
 	          textRotation : [0, 45, 90, -45],
@@ -2071,8 +2069,8 @@ webpackJsonp([0],{
 	          },
 	          data: [
 	            {
-	              name: "Sam S Club",
-	              value: 10000,
+	              name: this.state.data.lens[0].type,
+	              value: this.state.data.lens[0].totalImage,
 	              itemStyle: {
 	                normal: {
 	                  color: 'black'
@@ -2080,98 +2078,98 @@ webpackJsonp([0],{
 	              }
 	            },
 	            {
-	              name: "Macys",
-	              value: 6181,
+	              name: this.state.data.lens[1].type,
+	              value: this.state.data.lens[1].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Amy Schumer",
-	              value: 4386,
+	              name: this.state.data.lens[2].type,
+	              value: this.state.data.lens[2].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Jurassic World",
-	              value: 4055,
+	              name: this.state.data.lens[3].type,
+	              value: this.state.data.lens[3].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Charter Communications",
-	              value: 2467,
+	              name: this.state.data.lens[4].type,
+	              value: this.state.data.lens[4].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Chick Fil A",
-	              value: 2244,
+	              name: this.state.data.lens[5].type,
+	              value: this.state.data.lens[5].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Planet Fitness",
-	              value: 1898,
+	              name: this.state.data.lens[6].type,
+	              value: this.state.data.lens[6].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Pitch Perfect",
-	              value: 1484,
+	              name: this.state.data.lens[7].type,
+	              value: this.state.data.lens[7].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Express",
-	              value: 1112,
+	              name: this.state.data.lens[8].type,
+	              value: this.state.data.lens[8].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Home",
-	              value: 965,
+	              name: this.state.data.lens[9].type,
+	              value: this.state.data.lens[9].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Johnny Depp",
-	              value: 847,
+	              name: this.state.data.lens[10].type,
+	              value: this.state.data.lens[10].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Lena Dunham",
-	              value: 582,
+	              name: this.state.data.lens[11].type,
+	              value: this.state.data.lens[11].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Lewis Hamilton",
-	              value: 555,
+	              name: this.state.data.lens[12].type,
+	              value: this.state.data.lens[12].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "KXAN",
-	              value: 550,
+	              name: this.state.data.lens[13].type,
+	              value: this.state.data.lens[13].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Mary Ellen Mark",
-	              value: 462,
+	              name: this.state.data.lens[14].type,
+	              value: this.state.data.lens[14].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Farrah Abraham",
-	              value: 366,
+	              name: this.state.data.lens[15].type,
+	              value: this.state.data.lens[15].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Rita Ora",
-	              value: 360,
+	              name: this.state.data.lens[16].type,
+	              value: this.state.data.lens[16].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Serena Williams",
-	              value: 282,
+	              name: this.state.data.lens[17].type,
+	              value: this.state.data.lens[17].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "NCAA baseball tournament",
-	              value: 273,
+	              name: this.state.data.lens[18].type,
+	              value: this.state.data.lens[18].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            },
 	            {
-	              name: "Point Break",
-	              value: 265,
+	              name: this.state.data.lens[19].type,
+	              value: this.state.data.lens[19].totalImage,
 	              itemStyle: createRandomItemStyle()
 	            }
 	          ]
@@ -2184,16 +2182,25 @@ webpackJsonp([0],{
 	  },
 
 	  componentDidMount: function() {
-	    this.renderChart();
+	    $('.ui.sidebar.uncover.visible')
+	      .sidebar('hide');
+
+	    this.lens_token = PubSub.subscribe('data', function(msg, result) {
+	      console.log(result);
+	      this.setState({
+	        data: result
+	      });
+	      this.renderChart();
+	    }.bind(this));
 	  },
 
 	  render: function() {
 	    return (
 	      React.createElement(EnterAnimate, null, 
-	        React.createElement(Header, null, "Lens"), 
+	        React.createElement(Header, null, "图虫中使用最多的镜头Top20"), 
 	        React.createElement("div", {className: "ui one colum centered grid"}, 
 	          React.createElement("div", {className: "colum"}, 
-	            React.createElement("div", {id: "chart-container", style: chartStyle})
+	            React.createElement("div", {id: "lens-chart-container", style: chartStyle})
 	          ), 
 	          React.createElement("div", {className: "ui centered row"}, 
 	            React.createElement(NextButton, {url: "/tuchong/userscale/chart/1"})
@@ -2348,7 +2355,7 @@ webpackJsonp([0],{
 	  render: function() {
 	    return (
 	      React.createElement(EnterAnimate, null, 
-	        React.createElement(Header, null, "UserLocation"), 
+	        React.createElement(Header, null, "图虫用户分布"), 
 	        React.createElement("div", {className: "ui one colum centered grid"}, 
 	          React.createElement("div", {className: "colum"}, 
 	            React.createElement("div", {id: "chart-container", style: chartStyle})
@@ -2444,7 +2451,7 @@ webpackJsonp([0],{
 	  render: function() {
 	    return (
 	      React.createElement(EnterAnimate, null, 
-	        React.createElement(Header, null, "UserScale—Chart 1"), 
+	        React.createElement(Header, null, "图虫用户分析 1"), 
 	        React.createElement("div", {className: "ui one colum centered grid"}, 
 	          React.createElement("div", {className: "colum"}, 
 	            React.createElement("div", {id: "user-scale-chart", style: chartStyle})
@@ -2531,7 +2538,7 @@ webpackJsonp([0],{
 	        x : document.getElementById('chart-container').offsetWidth / 2 + 10,
 	        y : 55,
 	        itemGap:12,
-	        data:['僵尸用户','普通用户','活跃用户']
+	        data:['不活跃用户','普通用户','活跃用户']
 	      },
 	      toolbox: {
 	        show : true,
@@ -2550,10 +2557,10 @@ webpackJsonp([0],{
 	        itemStyle : dataStyle,
 	        data:[{
 	          value:this.state.data.followers_0_10,
-	          name:'僵尸用户'
+	          name:'不活跃用户'
 	        },
 	        {
-	          value: 100000/*parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000) + parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end)*/,
+	          value: parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000) + parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end),
 	          name:'invisible',
 	          itemStyle : placeHolderStyle
 	        }]
@@ -2565,11 +2572,11 @@ webpackJsonp([0],{
 	        radius : [100, 125],
 	        itemStyle : dataStyle,
 	        data:[{
-	          value: parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000), 
+	          value: parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000),
 	          name:'普通用户'
 	        },
 	        {
-	          value: 400000/*parseInt(this.state.data.followers_0_10) + parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end)*/,
+	          value: parseInt(this.state.data.followers_0_10) + parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end),
 	          name:'invisible',
 	          itemStyle : placeHolderStyle
 	        }]
@@ -2585,7 +2592,7 @@ webpackJsonp([0],{
 	          name:'活跃用户'
 	        },
 	        {
-	          value:400000/*parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000)*/,
+	          value:parseInt(this.state.data.followers_0_10) + parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000),
 	          name:'invisible',
 	          itemStyle : placeHolderStyle
 	        }]
@@ -2611,7 +2618,7 @@ webpackJsonp([0],{
 	  render: function() {
 	    return (
 	      React.createElement(EnterAnimate, null, 
-	        React.createElement(Header, null, "UserScale—Chart 2"), 
+	        React.createElement(Header, null, "图虫用户分析 2"), 
 	        React.createElement("div", {className: "ui one colum centered grid"}, 
 	          React.createElement("div", {className: "colum"}, 
 	            React.createElement("div", {id: "chart-container", style: chartStyle})
@@ -2653,7 +2660,7 @@ webpackJsonp([0],{
 	        React.createElement("div", {className: "ui one colum centered grid"}, 
 
 	          React.createElement("div", {className: "ui centered row"}, 
-	            React.createElement(NextButton, {url: "/about"})
+	            React.createElement("img", {class: "ui image", src: "/images/architecture.png"})
 	          )
 	        )
 	      )
@@ -2676,6 +2683,20 @@ webpackJsonp([0],{
 	var NextButton = __webpack_require__(232);
 	var EnterAnimate = __webpack_require__(212);
 
+	var mainContainerStyle = {
+	  marginTop: '2%',
+	  paddingTop: '50',
+	  paddingBottom: '50'
+	};
+
+	var nextButtonStyle = {
+	  marginTop: '50'
+	};
+
+	var tagContainerStyle = {
+	  paddingBottom: '20'
+	};
+
 	var OtherPage = React.createClass({displayName: "OtherPage",
 	  componentDidMount: function(){
 	    $('.ui.sidebar.uncover.visible')
@@ -2685,12 +2706,42 @@ webpackJsonp([0],{
 	  render: function() {
 	    return (
 	      React.createElement(EnterAnimate, null, 
-	        React.createElement(Header, null, "What's more"), 
-	        React.createElement("div", {className: "ui one colum centered grid"}, 
-
-	          React.createElement("div", {className: "ui centered row"}, 
-	            React.createElement(NextButton, {url: "architecture"})
+	        React.createElement(Header, null, "关于Jiva"), 
+	        React.createElement("div", {className: "ui inverted vertical masthead center aligned segment", style: mainContainerStyle}, 
+	          
+	          React.createElement("div", {className: "ui center aligned text container"}, 
+	            React.createElement("h1", null, "一个爱摄影的程序猿同学"), 
+	            React.createElement("div", {className: "ui container", style: tagContainerStyle}, 
+	              React.createElement("a", {className: "ui blue label"}, React.createElement("i", {className: "photo icon"}), "摄影"), 
+	              React.createElement("a", {className: "ui teal label"}, React.createElement("i", {className: "code icon"}), "程序猿"), 
+	              React.createElement("a", {className: "ui green label"}, React.createElement("i", {className: "student icon"}), "学生"), 
+	              React.createElement("a", {className: "ui olive label"}, React.createElement("i", {className: "area chart icon"}), "风光"), 
+	              React.createElement("a", {className: "ui yellow label"}, React.createElement("i", {className: "paint brush icon"}), "后期"), 
+	              React.createElement("a", {className: "ui orange label"}, React.createElement("i", {className: "child icon"}), "90后"), 
+	              React.createElement("a", {className: "ui red label"}, React.createElement("i", {className: "university icon"}), "北邮")
+	            ), 
+	            React.createElement("div", {className: "ui small images"}, 
+	              React.createElement("img", {src: "http://photos.tuchong.com/784250/ft640/26690128.jpg"}), 
+	              React.createElement("img", {src: "http://photos.tuchong.com/784250/ft640/26688976.jpg"}), 
+	              React.createElement("img", {src: "http://photos.tuchong.com/784250/ft640/26689181.jpg"}), 
+	              React.createElement("img", {src: "http://photos.tuchong.com/784250/ft640/26689204.jpg"})
+	            ), 
+	            React.createElement("div", {className: "ui text center aligned container"}, 
+	              React.createElement("div", {className: "item"}, 
+	                React.createElement("i", {className: "marker icon"}), 
+	                React.createElement("div", {className: "content"}, "Bei Jing, BJ ")
+	              ), 
+	              React.createElement("div", {class: "item"}, 
+	                React.createElement("div", {class: "content"}, 
+	                  React.createElement("a", {href: "mailto:jivacore@gmail.com"}, "jivacore@gmail.com")
+	                )
+	              )
+	            ), 
+	            React.createElement("a", {href: "http://jiva.tuchong.com", className: "ui inverted orange right arrow icon button"}, 
+	              "进入我的图虫主页"
+	            )
 	          )
+
 	        )
 	      )
 	    );
@@ -2745,7 +2796,7 @@ webpackJsonp([0],{
 	window.jQuery = $;
 
 	var menuButtonStyle = {
-	  top: '5.5em',
+	  top: '5em',
 	  left: '0',
 	  width: '100',
 	  zIndex: '1000',
@@ -2765,7 +2816,7 @@ webpackJsonp([0],{
 	    return (
 	      React.createElement("button", {className: "menu-button ui black big launch right attached fixed button", style: menuButtonStyle}, 
 	        React.createElement("i", {className: "content icon"}), 
-	        React.createElement("span", {className: "text"}, "Menu")
+	        React.createElement("span", {className: "text"}, "菜单")
 	      )
 	    );
 	  }

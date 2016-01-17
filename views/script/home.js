@@ -7,7 +7,7 @@ var Header = require('../component/header.js');
 var EnterAnimate = require('../component/enter-animate.js');
 
 var mainContainerStyle = {
-  marginTop: '5%'
+  marginTop: '2%'
 };
 
 var imgContainerStyle = {
@@ -27,7 +27,7 @@ var Home = React.createClass({
   render: function() {
     return (
       <EnterAnimate>
-        <Header>A Summarize Of tuchong.com</Header>
+        <Header>图虫的2015</Header>
         
         <div className="ui inverted vertical masthead center aligned segment" style={mainContainerStyle}>
           <div className="ui center aligned container" style={imgContainerStyle}>

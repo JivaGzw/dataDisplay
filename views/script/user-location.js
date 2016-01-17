@@ -134,7 +134,7 @@ var UserLocation = React.createClass({
   render: function() {
     return (
       <EnterAnimate>
-        <Header>UserLocation</Header>
+        <Header>图虫用户分布</Header>
         <div className="ui one colum centered grid">
           <div className="colum">
             <div id="chart-container" style={chartStyle}></div>

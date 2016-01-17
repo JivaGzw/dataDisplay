@@ -13,12 +13,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/data', function(req, res, next) {
-  redisDb.hgetall("statisticData", function(err, obj) {
+  redisDb.hgetall("statisticData", function(err, statisticData) {
     if(err) {
       console.log(err);
     }
-    console.log(obj);
-    res.json(obj);
+
+    statisticData.camera = eval('('+statisticData.camera+')');
+    statisticData.lens = eval('('+statisticData.lens+')');
+
+    console.log(statisticData);
+    res.json(statisticData);
   });
 });
 

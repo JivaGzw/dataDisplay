@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 
 /*import model of mongodb*/
 var User = require('../model/user').User;
+var Camera = require('../model/camera').Camera;
+var Lens = require('../model/lens').Lens;
 
 getUserCount =  function() {
   User.find({}).count().exec(function(err, counted) {
@@ -479,12 +481,61 @@ getUserLocation = function() {
   });
 };
 
+getTotalImage = function() {
+  Camera.find({}).exec(function(err, cameras){
+    if(err) {
+      console.log(err);
+    }
+    var totalImage = 0;
+    for(var i=0; i<cameras.length; i++) {
+      totalImage = totalImage + cameras[i].totalImage;
+    }
+    redisDb.hset("statisticData", "totalImage", totalImage, function(err, saved) {
+      if(err) {
+        console.log(err);
+      }
+    })
+  });
+};
+
+getTopCamera = function() {
+  Camera.find({}).sort({"totalImage": -1}).limit(10).exec(function(err, cameras){
+    if(err) {
+      console.log(err);
+    }
+    console.log(cameras);
+    redisDb.hset("statisticData", "camera", JSON.stringify(cameras), function(err, saved) {
+      if(err) {
+        console.log(err);
+      }
+    })
+
+  });
+};
+
+getTopLens = function() {
+  Lens.find({}).sort({"totalImage": -1}).limit(20).exec(function(err, lens){
+    if(err) {
+      console.log(err);
+    }
+    redisDb.hset("statisticData", "lens", JSON.stringify(lens), function(err, saved) {
+      if(err) {
+        console.log(err);
+      }
+    })
+  });
+};
+
+
 refreshRedis = function(cb) {
   console.log("Start to set clock in order to refresh redis data.Time setInterval 21600000 ms.");
   setInterval(function() {
     getUserCount();
     getUserScale();
     getUserLocation();
+    getTotalImage();
+    getTopCamera();
+    getTopLens();
     cb();
    
   }, 21600000);
@@ -495,8 +546,10 @@ getInitialStatistic = function(cb) {
   getUserCount();
   getUserScale();
   getUserLocation();
+  getTotalImage();
+  getTopCamera();
+  getTopLens();
   cb();
-  
 };
 
 exports.refreshRedis = refreshRedis;

@@ -7,7 +7,7 @@ var NextButton = require('../component/next-button.js');
 var EnterAnimate = require('../component/enter-animate.js');
 
 var mainContainerStyle = {
-  marginTop: '5%',
+  marginTop: '2%',
   paddingTop: '50',
   paddingBottom: '50'
 };
@@ -23,9 +23,7 @@ var nextButtonStyle = {
 var OverView = React.createClass({
   getInitialState: function() {
     return {
-      data: {
-        
-      }
+      data: {}
     }
   },
 
@@ -44,22 +42,24 @@ var OverView = React.createClass({
     return (
       <EnterAnimate>
         <div>
-          <Header>OverView</Header>
+          <Header>总览</Header>
         </div>
         <div className="ui inverted vertical masthead center aligned segment" style={mainContainerStyle}>
           
           <div className="ui center aligned text container">
             <div className="ui inverted two statistics">
               <div className="statistic">
-                <div className="value">not ready </div>
-                <div className="label">Total images </div>
+                <div className="value">
+                  {this.state.data.totalImage}
+                </div>
+                <div className="label">总图片数 </div>
               </div>
 
               <div className="statistic">
                 <div className="value">
                   {this.state.data.userCount}
                 </div>
-                <div className="label">Total Users </div>
+                <div className="label">总用户数 </div>
               </div>
             </div>
             <NextButton url="/tuchong/digitalcamera" style={nextButtonStyle}></NextButton>

@@ -4,7 +4,7 @@ var $ = jQuery = require('jquery');
 window.jQuery = $;
 
 var menuButtonStyle = {
-  top: '5.5em',
+  top: '5em',
   left: '0',
   width: '100',
   zIndex: '1000',
@@ -24,7 +24,7 @@ var MenuButton = React.createClass({
     return (
       <button className="menu-button ui black big launch right attached fixed button" style={menuButtonStyle} >
         <i className="content icon"/>
-        <span className="text">Menu</span>
+        <span className="text">菜单</span>
       </button>
     );
   }

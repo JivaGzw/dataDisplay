@@ -37,68 +37,84 @@ var NavList = React.createClass({
         </div>
 
         <Link to='/' className="item">
-          <b>Home</b>
+          <b>主页</b>
         </Link>
         <div className="item">
           <div className="header">
-            Summarize
+            总结
           </div>
           <div className="menu">
             <Link to='tuchong/overview' className="item">
-              OverView
+              总览
             </Link>
             <Link to='tuchong/digitalcamera' className="item">
-              1. Digital Camera
+              1. 相机Top 10
             </Link>
             <Link to='tuchong/lens' className="item">
-              2. Camera Lens
+              2. 镜头Top 20
             </Link>
             <Link to='tuchong/userscale/chart/1' className="item">
-              3. User Scale Chart 1
+              3. 用户分析 1
             </Link>
             <Link to='tuchong/userscale/chart/2' className="item">
-              4. User Scale Chart 2
+              4. 用户分析 2
             </Link>
             <Link to='tuchong/userlocation' className="item">
-              5. User Location
+              5. 用户分布
             </Link>
             <Link to='other' className="item">
-              6. Other
+              6. 关于Jiva
             </Link>
           </div>
         </div>
         <Link to='architecture' className="item">
-          <b>Architecture</b>
-        </Link>
-        <Link to='about' className="item">
-          <b>About</b>
+          <b>网站架构</b>
         </Link>
         
         <div className="item">
           <h5 className="ui grey horizontal divider inverted header">
-            Technical Assistance
+            技术支持
           </h5>
           <div className="menu">
             <div className="item">
-              React.js
+              <a href="http://facebook.github.io/react/">
+                React.js
+              </a>
             </div>
             <div className="item">
-              Node.js
+              <a href="https://nodejs.org/en/">
+                Node.js
+              </a>
             </div>
             <div className="item">
-              Express.js
+              <a href="http://expressjs.com/">
+                Express.js
+              </a>
             </div>
             <div className="item">
-              SemanticUI
+              <a href="http://www.semantic-ui.cn/">
+                SemanticUI
+              </a>
             </div>
             <div className="item">
-              ECharts
+              <a href="http://echarts.baidu.com/">
+                Echarts
+              </a>
             </div>
             <div className="item">
-              Mongodb
+              <a href="http://webpack.github.io/">
+                Webpack
+              </a>
             </div>
             <div className="item">
-              Redis
+              <a href="https://www.mongodb.org/">
+                mongodb
+              </a>
+            </div>
+            <div className="item">
+              <a href="http://redis.io/">
+                redis
+              </a>
             </div>
           </div>
           

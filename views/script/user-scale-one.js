@@ -72,7 +72,7 @@ var UserScaleOne = React.createClass({
   render: function() {
     return (
       <EnterAnimate>
-        <Header>UserScale—Chart 1</Header>
+        <Header>图虫用户分析 1</Header>
         <div className="ui one colum centered grid">
           <div className="colum">
             <div id="user-scale-chart" style={chartStyle}></div>

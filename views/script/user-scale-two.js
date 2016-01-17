@@ -63,7 +63,7 @@ var UserScaleTwo = React.createClass({
         x : document.getElementById('chart-container').offsetWidth / 2 + 10,
         y : 55,
         itemGap:12,
-        data:['僵尸用户','普通用户','活跃用户']
+        data:['不活跃用户','普通用户','活跃用户']
       },
       toolbox: {
         show : true,
@@ -82,10 +82,10 @@ var UserScaleTwo = React.createClass({
         itemStyle : dataStyle,
         data:[{
           value:this.state.data.followers_0_10,
-          name:'僵尸用户'
+          name:'不活跃用户'
         },
         {
-          value: 100000/*parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000) + parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end)*/,
+          value: parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000) + parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end),
           name:'invisible',
           itemStyle : placeHolderStyle
         }]
@@ -97,11 +97,11 @@ var UserScaleTwo = React.createClass({
         radius : [100, 125],
         itemStyle : dataStyle,
         data:[{
-          value: parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000), 
+          value: parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000),
           name:'普通用户'
         },
         {
-          value: 400000/*parseInt(this.state.data.followers_0_10) + parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end)*/,
+          value: parseInt(this.state.data.followers_0_10) + parseInt(this.state.data.followers_1000_3000) + parseInt(this.state.data.followers_3000_5000) + parseInt(this.state.data.followers_5000_8000) + parseInt(this.state.data.followers_8000_end),
           name:'invisible',
           itemStyle : placeHolderStyle
         }]
@@ -117,7 +117,7 @@ var UserScaleTwo = React.createClass({
           name:'活跃用户'
         },
         {
-          value:400000/*parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000)*/,
+          value:parseInt(this.state.data.followers_0_10) + parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_10_100) + parseInt(this.state.data.followers_100_1000),
           name:'invisible',
           itemStyle : placeHolderStyle
         }]
@@ -143,7 +143,7 @@ var UserScaleTwo = React.createClass({
   render: function() {
     return (
       <EnterAnimate>
-        <Header>UserScale—Chart 2</Header>
+        <Header>图虫用户分析 2</Header>
         <div className="ui one colum centered grid">
           <div className="colum">
             <div id="chart-container" style={chartStyle}></div>
